@@ -11,7 +11,7 @@ abstract class AuthRepositoryAbstract {
   /// Monitora o login status
   Stream<AuthStatus> get status;
 
-  Future<void> login({String name, String password});
+  Future<void> login({String? name, String? password});
 
   Future<void> logout();
 

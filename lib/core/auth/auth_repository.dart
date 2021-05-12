@@ -19,7 +19,7 @@ class AuthRepository implements AuthRepositoryAbstract {
 
   @override
   // TODO: implement login
-  Future<void> login({String name, String password}) async {
+  Future<void> login({String? name, String? password}) async {
     try {
       await Future<void>.delayed(const Duration(seconds: 1));
       _controller.add(AuthStatus.authenticated);
