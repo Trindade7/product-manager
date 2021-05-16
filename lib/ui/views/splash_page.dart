@@ -4,6 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
 
+// TODO: considerar seguir o guia
+// https://flutter.dev/docs/development/ui/advanced/splash-screen#initializing-the-app
+// para definir o launch view
 class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class SplashPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            Icons.inventory, // TODO: REPLACE WITH LOGO
+            Icons.view_quilt, // TODO: REPLACE WITH LOGO
             color: theme.greyWeak,
             size: 150.0,
           ),
@@ -26,7 +29,7 @@ class SplashPage extends StatelessWidget {
                 padding:
                     const EdgeInsets.fromLTRB(Insets.lg * 2, 0, Insets.md, 0),
                 child: Text(
-                  'Project'.toUpperCase(),
+                  'Product'.toUpperCase(),
                   style: TextStyles.h2.copyWith(color: theme.greyWeak),
                 ),
               ),
@@ -34,7 +37,7 @@ class SplashPage extends StatelessWidget {
                 padding: EdgeInsets.all(Insets.md),
                 decoration: BoxDecoration(
                     color: theme.shift(theme.accent1, -0.1),
-                    borderRadius: BorderRadius.all(Corners.medRadius)),
+                    borderRadius: BorderRadius.all(Corners.mdRadius)),
                 child: Text(
                   'Manager'.toUpperCase(),
                   style: TextStyles.h2.copyWith(color: theme.greyWeak),

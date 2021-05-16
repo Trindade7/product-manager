@@ -28,15 +28,15 @@ class Insets {
 }
 
 class Corners {
-  static const double sm = 2;
+  static const double sm = 4;
   static const BorderRadius smBorder = const BorderRadius.all(smRadius);
   static const Radius smRadius = const Radius.circular(sm);
 
-  static const double med = 4;
-  static const Radius medRadius = const Radius.circular(med);
-  static const BorderRadius medBorder = const BorderRadius.all(medRadius);
+  static const double md = 8;
+  static const Radius mdRadius = const Radius.circular(md);
+  static const BorderRadius mdBorder = const BorderRadius.all(mdRadius);
 
-  static const double lg = 8;
+  static const double lg = 12;
   static const Radius lgRadius = const Radius.circular(lg);
   static const BorderRadius lgBorder = const BorderRadius.all(lgRadius);
 }

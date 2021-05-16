@@ -100,6 +100,7 @@ class AppTheme {
       buttonColor: accent1,
       highlightColor: shift(accent1, .1),
       toggleableActiveColor: accent1,
+      focusColor: accent1,
     );
     // returna ThemeData
     return t;
