@@ -7,6 +7,7 @@ class NameInput extends FormzInput<String, NameError> {
 
   @override
   NameError? validator(String? value) {
+    // Utiliza o abstract method Name.validate para validar valor
     return Name.validate(value ?? '');
   }
 }

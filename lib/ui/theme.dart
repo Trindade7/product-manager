@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:product_manager/ui/styles.dart';
 
 enum ThemeType { Blue_Light, Blue_Dark }
 
@@ -90,6 +91,8 @@ class AppTheme {
       ),
     );
     // Aplica estilos que ColorScheme não cobre
+    // textbut
+
     t.copyWith(
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       textSelectionTheme: TextSelectionThemeData(

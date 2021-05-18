@@ -7,6 +7,7 @@ class PasswordInput extends FormzInput<String, PasswordError> {
 
   @override
   PasswordError? validator(String? value) {
+    // Utiliza o abstract method password.validate para validar valor
     return Password.validate(value ?? '');
   }
 }

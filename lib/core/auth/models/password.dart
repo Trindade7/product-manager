@@ -1,22 +1,25 @@
 import 'package:product_manager/core/auth/models/auth_entity.dart';
 
+/// Tipos de erro da password, pode ser incrementado para suportar
+/// outros tipos de erro como incluir valores alfa numéricos obrigátorio
 enum PasswordError { empty, length }
 
-class Password implements AuthEntity {
-  Password({
-    required this.value,
-  }) {
-    error = validate(this.value);
+/// Password  validada. Utile em vez de `string`
+class Password implements AuthEntity<String, PasswordError?> {
+  Password(this.value) {
+    _error = validate(this.value);
     if (error == null) _isvalid = true;
   }
 
-  PasswordError? error;
-  bool _isvalid = false;
+  late bool _isvalid;
+  late PasswordError? _error;
 
   @override
-  String value;
+  late String value;
+  PasswordError? get error => _error;
   bool get isValid => _isvalid;
 
+  /// Valida o valor passado, retorna o tipo de erro ou null
   static PasswordError? validate(String value) {
     // testa se a string está no range 6-100
     final lengthRgx = RegExp(r'^.{6,100}$');

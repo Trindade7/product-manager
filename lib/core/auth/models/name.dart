@@ -1,20 +1,21 @@
 import 'package:product_manager/core/auth/models/auth_entity.dart';
 
+/// Tipos de erro do login value,
 enum NameError { empty, length }
 
-class Name implements AuthEntity {
-  Name({
-    required this.value,
-  }) {
-    error = validate(this.value);
-    if (error == null) _isvalid = true;
+/// Login  validado. Utile em vez de `string`
+class Name implements AuthEntity<String, NameError?> {
+  Name(this.value) {
+    _error = validate(this.value);
+    if (_error == null) _isvalid = true;
   }
 
-  NameError? error;
   bool _isvalid = false;
+  late NameError? _error;
 
   @override
-  String value;
+  late String value;
+  NameError? get error => _error;
   bool get isValid => _isvalid;
 
   static NameError? validate(String value) {

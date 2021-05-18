@@ -2,7 +2,7 @@ part of 'login_cubit.dart';
 
 class LoginState extends Equatable {
   LoginState({
-    this.status = FormzStatus.submissionInProgress,
+    this.status = FormzStatus.pure,
     this.name = const NameInput.pure(),
     this.password = const PasswordInput.pure(),
   });
@@ -12,8 +12,10 @@ class LoginState extends Equatable {
   final PasswordInput password;
 
   @override
+  // Utilizado para comparar estados
   List<Object> get props => [name, password, status];
 
+  /// Cria um novo `LoginState` com os dados actualizados
   LoginState copyWith({
     NameInput? name,
     PasswordInput? password,

@@ -10,9 +10,9 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   final AuthRepository _authRepository;
 
-  Password p = Password(value: 'das');
-
   LoginCubit(this._authRepository) : super(LoginState());
+
+  //  Atualiza o valor do estado quando o valor do login altera
   void nameChanged(String value) {
     final name = NameInput.dirty(value);
     emit(state.copyWith(
@@ -21,6 +21,7 @@ class LoginCubit extends Cubit<LoginState> {
     ));
   }
 
+  //  Atualiza o valor do estado quando a valor da password altera
   void passwordChanged(String value) {
     final password = PasswordInput.dirty(value);
     emit(state.copyWith(
@@ -29,14 +30,15 @@ class LoginCubit extends Cubit<LoginState> {
     ));
   }
 
+  /// Login com os valores dos inputs se os mesmos forem válidos
   Future<void> login() async {
     if (!state.status.isValidated) return;
 
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
       await _authRepository.login(
-        name: state.name.value,
-        password: state.password.value,
+        name: Name(state.name.value),
+        password: Password(state.password.value),
       );
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on Exception {
