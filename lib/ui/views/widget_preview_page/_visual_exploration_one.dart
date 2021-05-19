@@ -2,53 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
-import 'package:product_manager/ui/views/dumb_widgets/separator_box.dart';
+import 'package:product_manager/ui/views/widgets/separator_box.dart';
 import 'package:provider/provider.dart';
 
 class WidgetPreviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          elevation: 5,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'search',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.money_off_csred_sharp),
-              label: 'preço',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings_outlined),
-              label: 'Settings',
-            ),
-          ],
-        ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(Insets.md),
-            child: SingleChildScrollView(
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ProductTileMd(),
-                  ProductTileMd(),
-                  ProductTileMd(selected: true),
-                  ProductTileMd(),
-                  ProductTileMd(),
-                  ProductTileMd(),
-                  ProductTileMd(),
-                  ProductTileMd(),
-                  ProductTileMd(selected: true),
-                  ProductTileMd(),
-                  ProductTileMd(),
-                  ProductTileMd(selected: true),
-                ],
-              ),
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        elevation: 5,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.money_off_csred_sharp),
+            label: 'preço',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings_outlined),
+            label: 'Settings',
+          ),
+        ],
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(Insets.md),
+          child: SingleChildScrollView(
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ProductTileMd(),
+                ProductTileMd(),
+                ProductTileMd(selected: true),
+                ProductTileMd(),
+                ProductTileMd(),
+                ProductTileMd(),
+                ProductTileMd(),
+                ProductTileMd(),
+                ProductTileMd(selected: true),
+                ProductTileMd(),
+                ProductTileMd(),
+                ProductTileMd(selected: true),
+              ],
             ),
           ),
         ),

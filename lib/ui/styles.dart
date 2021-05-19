@@ -101,6 +101,8 @@ class TextStyles {
   static TextStyle get h2 =>
       h1.copyWith(fontSize: FontSizes.s24, letterSpacing: -.5, height: 1.16);
   static TextStyle get h3 =>
+      h1.copyWith(fontSize: FontSizes.s16, letterSpacing: -.05, height: 1.29);
+  static TextStyle get h4 =>
       h1.copyWith(fontSize: FontSizes.s14, letterSpacing: -.05, height: 1.29);
 
   static TextStyle get title1 => notoLatin.copyWith(
@@ -119,7 +121,6 @@ class TextStyles {
       fontSize: FontSizes.s12, height: 1.5, fontWeight: FontWeight.bold);
 
   static TextStyle get caption => notoLatin.copyWith(
-        fontWeight: FontWeight.bold,
         fontSize: FontSizes.s11,
         height: 1.36,
       );

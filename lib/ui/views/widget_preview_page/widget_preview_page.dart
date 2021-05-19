@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
-import 'package:product_manager/ui/views/dumb_widgets/separator_box.dart';
+import 'package:product_manager/ui/views/widgets/separator_box.dart';
+import 'package:product_manager/ui/views/widgets/square_icon_button.dart';
 import 'package:provider/provider.dart';
 
 class WidgetPreviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppTheme theme = context.watch();
-    const bannerIcon = 'assets/images/project_manager_icon_p.svg';
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Detalhes do producto',
+          style: TextStyles.h3.copyWith(color: theme.mainTextColor),
+        ),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).cardColor,
+        elevation: 1,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         elevation: 5,
@@ -30,168 +38,215 @@ class WidgetPreviewPage extends StatelessWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: SvgPicture.asset(
-                bannerIcon,
-                width: 150,
+      body: Center(
+        child: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 450, minWidth: 300),
+            child: Container(
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: Corners.lgBorder,
+                ),
+                elevation: 2,
+                shadowColor: Colors.black26,
+                child: Padding(
+                  padding: const EdgeInsets.all(Insets.lg),
+                  child: EditProductForm(theme: theme),
+                ),
               ),
-              padding: EdgeInsets.fromLTRB(
-                Insets.lg,
-                2 * Insets.offset,
-                Insets.lg,
-                Insets.offset,
-              ),
-              color: theme.surface1,
-              width: double.infinity,
             ),
-            ProductTileSm(),
-            ProductTileSm(),
-            ProductTileSm(),
-            ProductTileSm(),
-            ProductTileSm(selected: true),
-            ProductTileSm(),
-            ProductTileSm(),
-          ],
+          ),
         ),
       ),
     );
   }
 }
 
-class ProductTileSm extends StatelessWidget {
-  ProductTileSm({Key? key, this.selected = false}) : super(key: key);
-  final selected;
+class EditProductForm extends StatelessWidget {
+  const EditProductForm({
+    Key? key,
+    required this.theme,
+  }) : super(key: key);
+
+  final AppTheme theme;
 
   @override
   Widget build(BuildContext context) {
-    AppTheme theme = context.watch();
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: Corners.lgBorder,
-        side: BorderSide(
-          color: selected ? theme.accent1 : Colors.transparent,
+    return Column(
+      children: [
+        ProductSummary(theme: theme),
+        SeparatorBox.xLarge(),
+        Divider(),
+        SeparatorBox.xLarge(),
+        Text(
+          'Editar',
+          style: TextStyles.h3,
         ),
-      ),
-      clipBehavior: Clip.hardEdge,
-      margin: EdgeInsets.symmetric(
-        horizontal: Insets.sm * 0.5,
-        vertical: Insets.sm,
-      ),
-      semanticContainer: true,
-      elevation: selected ? 4 : 2,
-      shadowColor: selected ? Colors.black45 : Colors.black26,
-      child: Padding(
-        padding: const EdgeInsets.all(Insets.lg),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        SeparatorBox.large(),
+        //Nome
+        TextField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: Corners.smBorder,
+            ),
+            hintText: "Nome do producto...",
+            contentPadding: EdgeInsets.all(Insets.sm),
+            isDense: true,
+          ),
+          maxLines: 3,
+          minLines: 1,
+          maxLength: 1000,
+        ),
+        SeparatorBox.medium(),
+        // Código
+        TextField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: Corners.smBorder,
+            ),
+            hintText: "Código...",
+            contentPadding: EdgeInsets.all(Insets.sm),
+            isDense: true,
+          ),
+          maxLength: 100,
+        ),
+        SeparatorBox.small(),
+        // Stock Preço
+        Row(
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Imagem do producto
-                DeleteProductBtn(selected: selected),
-                SeparatorBox.medium(),
-                // Nome  do producto
-                Expanded(
-                  flex: 10,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Apple',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyles.body3,
-                      ),
-                      SeparatorBox.small(),
-                      Text(
-                        'PR0DUCTC0D3',
-                        style: Theme.of(context).textTheme.caption?.copyWith(
-                              color: theme.grey,
-                            ),
-                      ),
-                    ],
+            // Stock
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: Corners.smBorder,
+                  ),
+                  hintText: "Quantidade...",
+                  contentPadding: EdgeInsets.all(Insets.sm),
+                  isDense: true,
+                ),
+                maxLength: 100,
+              ),
+            ),
+            SeparatorBox.small(),
+            // Preço
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: Corners.smBorder,
+                  ),
+                  hintText: "Preço...",
+                  contentPadding: EdgeInsets.all(Insets.sm),
+                  isDense: true,
+                ),
+                maxLength: 100,
+              ),
+            ),
+          ],
+        ),
+        SeparatorBox.xLarge(),
+        Row(
+          children: [
+            Expanded(
+              child: TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: Corners.mdBorder,
                   ),
                 ),
-                SeparatorBox.medium(),
-                // Preço do producto
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      '£200000.00',
-                      style: TextStyles.body1
-                          .copyWith(color: theme.shift(theme.accent1, 0.1)),
-                    ),
-                    SeparatorBox.small(),
-                    Text(
-                      '100000un',
-                      style: Theme.of(context).textTheme.caption?.copyWith(
-                            color: theme.grey,
-                          ),
-                    ),
-                  ],
-                )
-              ],
+                child: Text(
+                  'Salvar',
+                  style: TextStyles.title1.copyWith(color: Colors.white),
+                ),
+              ),
             ),
           ],
         ),
-      ),
+      ],
     );
   }
 }
 
-class DeleteProductBtn extends StatelessWidget {
-  final bool selected;
-  final Function? onPressedCallback;
-  final IconSizes iconSize;
-  final Insets padding;
+class ProductSummary extends StatelessWidget {
+  const ProductSummary({
+    Key? key,
+    required this.theme,
+  }) : super(key: key);
 
-  const DeleteProductBtn({
-    this.onPressedCallback,
-    this.selected = false, this.iconSize = IconSizes.md, this.padding = ,
-  });
+  final AppTheme theme;
 
   @override
   Widget build(BuildContext context) {
-    AppTheme theme = context.watch();
-    return TextButton(
-      onPressed: (onPressedCallback != null) ? () => onPressedCallback : null,
-      child: Icon(
-        Icons.delete,
-        color: theme.grey,
-      ),
-      style: TextButton.styleFrom(
-        backgroundColor: theme.greyWeak,
-        padding: const EdgeInsets.all(Insets.sm),
-        minimumSize: const Size(IconSizes.md, IconSizes.md),
-      ),
-    );
-  }
-}
-
-class DeleteProductBtn0 extends StatelessWidget {
-  final bool selected;
-
-  const DeleteProductBtn0({this.selected = false});
-
-  @override
-  Widget build(BuildContext context) {
-    AppTheme theme = context.watch();
-    return Container(
-      padding: EdgeInsets.all(Insets.sm),
-      decoration: BoxDecoration(
-        color: selected ? Colors.red[50] : Colors.blueGrey[50],
-        borderRadius: Corners.lgBorder,
-      ),
-      child: Icon(
-        Icons.delete,
-        color: theme.grey,
-      ),
+    return Column(
+      children: [
+        SquareIconButton(
+          icon: Icon(
+            Icons.delete,
+            size: IconSizes.lg,
+            color: theme.mainTextColor,
+          ),
+          onPressedCallback: () {},
+          padding: Insets.lg,
+        ),
+        SeparatorBox.xLarge(),
+        //Nome
+        Text(
+          '200x Apples',
+          style: TextStyles.h3,
+        ),
+        SeparatorBox.small(),
+        // Código
+        Text(
+          'PR0DUCTC0D3',
+          style: Theme.of(context).textTheme.caption,
+        ),
+        SeparatorBox.large(),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SeparatorBox.medium(),
+            // Stock
+            Expanded(
+              flex: 10,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '1000',
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyles.title2,
+                  ),
+                  SeparatorBox.small(),
+                  Text(
+                    'Stock',
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                ],
+              ),
+            ),
+            SeparatorBox.medium(),
+            // Preço
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  '£200000.00',
+                  style: TextStyles.body1
+                      .copyWith(color: theme.shift(theme.accent1, 0.1)),
+                ),
+                SeparatorBox.small(),
+                Text(
+                  'Preço',
+                  style: Theme.of(context).textTheme.caption,
+                ),
+              ],
+            )
+          ],
+        ),
+      ],
     );
   }
 }

@@ -69,7 +69,7 @@ class AppTheme {
           type: t,
           bg1: const Color(0xfffafafa),
           surface1: Colors.white,
-          surface2: const Color(0xffebf0f3),
+          surface2: const Color(0xffF4F7F7),
           accent1: const Color(0xff0166ff),
           greyWeak: const Color(0xfff9fbfa),
           grey: const Color(0xff8d9093),
@@ -109,17 +109,29 @@ class AppTheme {
     // textbut
 
     t.copyWith(
-      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      textSelectionTheme: TextSelectionThemeData(
-        cursorColor: surface1,
-        selectionHandleColor: Colors.transparent,
-        selectionColor: surface1,
-      ),
-      buttonColor: accent1,
-      highlightColor: shift(accent1, .1),
-      toggleableActiveColor: accent1,
-      focusColor: accent1,
-    );
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: surface1,
+          selectionHandleColor: Colors.transparent,
+          selectionColor: surface1,
+        ),
+        // buttonColor: Colors.white,
+        // highlightColor: shift(accent1, .1),
+        // toggleableActiveColor: accent1,
+        // focusColor: accent1,
+        textTheme: TextTheme(
+          headline1: TextStyles.h1,
+          headline2: TextStyles.h2,
+          headline3: TextStyles.h3,
+          headline4: TextStyles.h4,
+          bodyText1: TextStyles.body1,
+          bodyText2: TextStyles.body2,
+          subtitle1: TextStyles.title1,
+          subtitle2: TextStyles.title2,
+          caption: TextStyles.caption,
+          overline: TextStyles.caption,
+        ),
+        iconTheme: IconThemeData(color: inverseTextColor));
     // returna ThemeData
     return t;
   }
