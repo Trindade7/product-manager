@@ -7,22 +7,22 @@ class SeparatorBox extends StatelessWidget {
   final double _size;
   final double _scale;
 
-  SeparatorBox.xSmall({double scale = 1})
+  const SeparatorBox.xSmall({double scale = 1})
       : this._size = Insets.xs,
         this._scale = scale;
-  SeparatorBox.small({double scale = 1})
+  const SeparatorBox.small({double scale = 1})
       : this._size = Insets.sm,
         this._scale = scale;
-  SeparatorBox.medium({double scale = 1})
+  const SeparatorBox.medium({double scale = 1})
       : this._size = Insets.md,
         this._scale = scale;
-  SeparatorBox.large({double scale = 1})
+  const SeparatorBox.large({double scale = 1})
       : this._size = Insets.lg,
         this._scale = scale;
-  SeparatorBox.xLarge({double scale = 1})
+  const SeparatorBox.xLarge({double scale = 1})
       : this._size = Insets.xl,
         this._scale = scale;
-  SeparatorBox.offset({double scale = 1})
+  const SeparatorBox.offset({double scale = 1})
       : this._size = Insets.offset,
         this._scale = scale;
 

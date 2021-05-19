@@ -6,7 +6,7 @@ import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
 import 'package:product_manager/ui/views/auth_page/cubit/login_cubit.dart';
 import 'package:product_manager/ui/views/auth_page/login_form.dart';
-import 'package:product_manager/ui/views/dumb_widgets/separator_box.dart';
+import 'package:product_manager/ui/views/widgets/separator_box.dart';
 import 'package:provider/provider.dart';
 
 class AuthPage extends StatefulWidget {
