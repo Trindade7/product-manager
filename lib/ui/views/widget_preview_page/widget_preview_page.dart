@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
 import 'package:product_manager/ui/views/dumb_widgets/separator_box.dart';
@@ -8,57 +9,61 @@ import 'package:provider/provider.dart';
 class WidgetPreviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          elevation: 5,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'search',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.money_off_csred_sharp),
-              label: 'preço',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings_outlined),
-              label: 'Settings',
-            ),
-          ],
-        ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(Insets.md),
-            child: SingleChildScrollView(
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ProductTileMd(),
-                  ProductTileMd(),
-                  ProductTileMd(selected: true),
-                  ProductTileMd(),
-                  ProductTileMd(),
-                  ProductTileMd(),
-                  ProductTileMd(),
-                  ProductTileMd(),
-                  ProductTileMd(selected: true),
-                  ProductTileMd(),
-                  ProductTileMd(),
-                  ProductTileMd(selected: true),
-                ],
-              ),
-            ),
+    AppTheme theme = context.watch();
+    const bannerIcon = 'assets/images/project_manager_icon_p.svg';
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        elevation: 5,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'search',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.filter_alt_outlined),
+            label: 'filtrar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.logout),
+            label: 'Logout',
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              child: SvgPicture.asset(
+                bannerIcon,
+                width: 150,
+              ),
+              padding: EdgeInsets.fromLTRB(
+                Insets.lg,
+                2 * Insets.offset,
+                Insets.lg,
+                Insets.offset,
+              ),
+              color: theme.surface1,
+              width: double.infinity,
+            ),
+            ProductTileSm(),
+            ProductTileSm(),
+            ProductTileSm(),
+            ProductTileSm(),
+            ProductTileSm(selected: true),
+            ProductTileSm(),
+            ProductTileSm(),
+          ],
         ),
       ),
     );
   }
 }
 
-class ProductTileMd extends StatelessWidget {
-  ProductTileMd({Key? key, this.selected = false}) : super(key: key);
+class ProductTileSm extends StatelessWidget {
+  ProductTileSm({Key? key, this.selected = false}) : super(key: key);
   final selected;
 
   @override
@@ -72,75 +77,67 @@ class ProductTileMd extends StatelessWidget {
         ),
       ),
       clipBehavior: Clip.hardEdge,
-      margin: EdgeInsets.all(Insets.sm),
+      margin: EdgeInsets.symmetric(
+        horizontal: Insets.sm * 0.5,
+        vertical: Insets.sm,
+      ),
       semanticContainer: true,
-      elevation: 2,
-      shadowColor: Colors.black12,
+      elevation: selected ? 4 : 2,
+      shadowColor: selected ? Colors.black45 : Colors.black26,
       child: Padding(
-        padding: const EdgeInsets.all(Insets.md),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        padding: const EdgeInsets.all(Insets.lg),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Imagem do producto
-            ProductIcon(),
-            SeparatorBox.medium(),
-            //Stock do producto
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  '100000',
-                  style: TextStyles.title2,
-                ),
-                SeparatorBox.small(),
-                Text(
-                  'Stock',
-                  style: Theme.of(context).textTheme.caption?.copyWith(
-                        color: theme.grey,
+                // Imagem do producto
+                DeleteProductBtn(selected: selected),
+                SeparatorBox.medium(),
+                // Nome  do producto
+                Expanded(
+                  flex: 10,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Apple',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyles.body3,
                       ),
+                      SeparatorBox.small(),
+                      Text(
+                        'PR0DUCTC0D3',
+                        style: Theme.of(context).textTheme.caption?.copyWith(
+                              color: theme.grey,
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
+                SeparatorBox.medium(),
+                // Preço do producto
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      '£200000.00',
+                      style: TextStyles.body1
+                          .copyWith(color: theme.shift(theme.accent1, 0.1)),
+                    ),
+                    SeparatorBox.small(),
+                    Text(
+                      '100000un',
+                      style: Theme.of(context).textTheme.caption?.copyWith(
+                            color: theme.grey,
+                          ),
+                    ),
+                  ],
+                )
               ],
             ),
-            SeparatorBox.medium(),
-            // Nome  do producto
-            Expanded(
-              flex: 10,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'long super very much so name',
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyles.title2,
-                  ),
-                  SeparatorBox.small(),
-                  Text(
-                    'Nome',
-                    style: Theme.of(context).textTheme.caption?.copyWith(
-                          color: theme.grey,
-                        ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(child: SizedBox()),
-            // Preço do producto
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  '£2000000.00',
-                  style: TextStyles.title2,
-                ),
-                SeparatorBox.small(),
-                Text(
-                  'Preço',
-                  style: Theme.of(context).textTheme.caption?.copyWith(
-                        color: theme.grey,
-                      ),
-                ),
-              ],
-            )
           ],
         ),
       ),
@@ -148,40 +145,53 @@ class ProductTileMd extends StatelessWidget {
   }
 }
 
-class ProductIcon extends StatelessWidget {
-  const ProductIcon({
-    Key? key,
-  }) : super(key: key);
+class DeleteProductBtn extends StatelessWidget {
+  final bool selected;
+  final Function? onPressedCallback;
+  final IconSizes iconSize;
+  final Insets padding;
+
+  const DeleteProductBtn({
+    this.onPressedCallback,
+    this.selected = false, this.iconSize = IconSizes.md, this.padding = ,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(Insets.sm),
-      decoration: BoxDecoration(
-        // color: Color(0xffF7F7F7),
-        color: Colors.green[50],
-        // color: Colors.red[100],
-        borderRadius: Corners.lgBorder,
+    AppTheme theme = context.watch();
+    return TextButton(
+      onPressed: (onPressedCallback != null) ? () => onPressedCallback : null,
+      child: Icon(
+        Icons.delete,
+        color: theme.grey,
       ),
-      child: Icon(Icons.palette),
+      style: TextButton.styleFrom(
+        backgroundColor: theme.greyWeak,
+        padding: const EdgeInsets.all(Insets.sm),
+        minimumSize: const Size(IconSizes.md, IconSizes.md),
+      ),
     );
   }
 }
 
-class ProductCheckBox extends StatelessWidget {
-  const ProductCheckBox({
-    Key? key,
-  }) : super(key: key);
+class DeleteProductBtn0 extends StatelessWidget {
+  final bool selected;
+
+  const DeleteProductBtn0({this.selected = false});
 
   @override
   Widget build(BuildContext context) {
-    return Checkbox(
-      value: true,
-      overlayColor: MaterialStateProperty.all<Color>(Colors.red),
-      fillColor: MaterialStateProperty.all<Color>(Colors.red),
-      hoverColor: Colors.red,
-      materialTapTargetSize: MaterialTapTargetSize.padded,
-      onChanged: (val) => !false,
+    AppTheme theme = context.watch();
+    return Container(
+      padding: EdgeInsets.all(Insets.sm),
+      decoration: BoxDecoration(
+        color: selected ? Colors.red[50] : Colors.blueGrey[50],
+        borderRadius: Corners.lgBorder,
+      ),
+      child: Icon(
+        Icons.delete,
+        color: theme.grey,
+      ),
     );
   }
 }
