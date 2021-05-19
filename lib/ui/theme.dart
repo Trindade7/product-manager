@@ -3,12 +3,24 @@ import 'package:product_manager/ui/styles.dart';
 
 enum ThemeType { Blue_Light, Blue_Dark }
 
+//TODO: create
+var appThemes = {
+  "Bluetiful": "0266ff",
+  "Onyx": "33383d",
+  "Sonic Silver": "6d7275",
+  "Taupe Gray": "988c8e",
+  "Light Gray": "d0d1d1",
+  "Cultured": "f7f7f7",
+  "White": "ffffff",
+};
+
 /// AppTheme - usado para estilizar o app.
 ///
 /// Use provider para applicar tema atual:
 ///
 ///      `AppTheme theme = context.watch();`
-///      `return Container(color: theme.accentColor);`
+///      `return Container(color: theme.accentColor);
+///
 class AppTheme {
   static ThemeType defaultTheme = ThemeType.Blue_Light;
 
@@ -23,6 +35,7 @@ class AppTheme {
   final Color greyMedium;
   final Color greyStrong;
   final Color focus;
+  final Color danger;
 
   /// Ajusta as cores de texto de acordo ao tema:
   /// branco para temas escuros e preto pra claros
@@ -41,6 +54,7 @@ class AppTheme {
       required this.greyMedium,
       required this.greyStrong,
       required this.focus,
+      required this.danger,
       required this.isDark}) {
     mainTextColor = isDark ? Colors.white : Colors.black;
     inverseTextColor = isDark ? Colors.black : Colors.white;
@@ -62,6 +76,7 @@ class AppTheme {
           greyMedium: const Color(0xff747474),
           greyStrong: const Color(0xff33383c),
           focus: const Color(0xfffe5a65),
+          danger: const Color(0xffe57373),
         );
       default:
         return AppTheme.fromType(defaultTheme);
@@ -115,10 +130,10 @@ class AppTheme {
   ///
   // Permite alterar as cores sem se preocupar com a luminosidade
   Color shift(Color c, double amt) {
-    amt *= (isDark ? -1 : 1);
+    amt *= (isDark ? -1.0 : 1.0);
     var hslc = HSLColor.fromColor(c); // Convert to HSL
     double lightness =
-        (hslc.lightness + amt).clamp(0, 1.0) as double; // Add/Rem lightness
+        (hslc.lightness + amt).clamp(0.0, 1.0); // Add/Rem lightness
     return hslc
         .withLightness(lightness)
         .toColor(); // Converte de volta para cor

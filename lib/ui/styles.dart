@@ -119,5 +119,8 @@ class TextStyles {
       fontSize: FontSizes.s12, height: 1.5, fontWeight: FontWeight.bold);
 
   static TextStyle get caption => notoLatin.copyWith(
-      fontWeight: FontWeight.bold, fontSize: FontSizes.s11, height: 1.36);
+        fontWeight: FontWeight.bold,
+        fontSize: FontSizes.s11,
+        height: 1.36,
+      );
 }
