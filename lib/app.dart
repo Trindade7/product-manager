@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_manager/ui/theme.dart';
 import 'package:product_manager/ui/views/auth_page/auth_page.dart';
+import 'package:product_manager/ui/views/products/product_details/product_details_page.dart';
+import 'package:product_manager/ui/views/products/products_page.dart';
 import 'package:product_manager/ui/views/splash_page.dart';
 import 'package:product_manager/ui/views/widget_preview_page/widget_preview_page.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +23,7 @@ class App extends StatelessWidget {
           title: 'Product Manager',
           // TODO: ADD DYNAMIC THEMING
           theme: appTheme.toThemeData(),
-          home: WidgetPreviewPage(),
+          home: ProductDetailsPage(),
         ),
       ),
     );

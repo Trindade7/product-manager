@@ -1,8 +1,6 @@
 /// Objecto validado. Utile em vez de `string`, `double`, etc...
 /// Para maior controle e abstraction.
-
-// TODO: choose appropriate naming convention
-abstract class AuthEntity<T, ERR> {
+abstract class PrimitiveEntity<T, ERR> {
   /// Armazena o valor passado
   late String value;
 
