@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:product_manager/ui/theme.dart';
-import 'package:product_manager/ui/views/products/widgets/product_widgets.dart';
-import 'package:product_manager/ui/views/widgets/separator_box.dart';
+import 'package:product_manager/ui/products/widgets/product_widgets.dart';
+import 'package:product_manager/ui/widgets/separator_box.dart';
 
 class ProductDetails extends StatelessWidget {
   const ProductDetails({required this.theme});

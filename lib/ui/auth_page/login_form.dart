@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
-import 'package:product_manager/ui/views/auth_page/cubit/login_cubit.dart';
-import 'package:product_manager/ui/views/widgets/separator_box.dart';
+import 'package:product_manager/ui/auth_page/cubit/login_cubit.dart';
+import 'package:product_manager/ui/widgets/separator_box.dart';
 import 'package:formz/formz.dart';
 
 class LoginForm extends StatelessWidget {

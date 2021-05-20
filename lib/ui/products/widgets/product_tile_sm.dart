@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
-import 'package:product_manager/ui/views/widgets/separator_box.dart';
-import 'package:product_manager/ui/views/widgets/square_icon_button.dart';
+import 'package:product_manager/ui/widgets/separator_box.dart';
+import 'package:product_manager/ui/widgets/square_icon_button.dart';
 import 'package:provider/provider.dart';
 
 class ProductTileSm extends StatelessWidget {

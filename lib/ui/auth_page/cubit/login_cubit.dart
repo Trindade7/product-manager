@@ -3,7 +3,7 @@ import 'package:formz/formz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:product_manager/core/auth/auth_repository.dart';
 import 'package:product_manager/core/auth/models/models.dart';
-import 'package:product_manager/ui/views/auth_page/models/models.dart';
+import 'package:product_manager/ui/auth_page/models/models.dart';
 
 part 'login_state.dart';
 

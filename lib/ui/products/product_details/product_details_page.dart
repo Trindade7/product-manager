@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
-import 'package:product_manager/ui/views/products/widgets/product_detail_view_sm.dart';
+import 'package:product_manager/ui/products/widgets/product_detail_view_sm.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailsPage extends StatelessWidget {

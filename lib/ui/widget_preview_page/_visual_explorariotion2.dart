@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
-import 'package:product_manager/ui/views/widgets/separator_box.dart';
+import 'package:product_manager/ui/widgets/separator_box.dart';
 import 'package:provider/provider.dart';
 
 class WidgetPreviewPage extends StatelessWidget {
