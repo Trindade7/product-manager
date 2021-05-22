@@ -1,8 +1,9 @@
 /// Objecto validado. Utile em vez de `string`, `double`, etc...
 /// Para maior controle e abstraction.
-abstract class PrimitiveEntity<T, ERR> {
+
+abstract class EntityObject<T, ERR> {
   /// Armazena o valor passado
-  late String value;
+  late T value;
 
   /// Retorna o tipo de erro de validação se tiver.
   /// Do contrário retorna `null`

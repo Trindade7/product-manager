@@ -1,2 +1,2 @@
-export './name.dart';
-export './password.dart';
+export 'name.dart';
+export 'password.dart';

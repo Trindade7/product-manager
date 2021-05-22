@@ -1,11 +1,11 @@
-import 'package:product_manager/core/auth/models/auth_entity.dart';
+import 'package:product_manager/core/entity_object.dart';
 
 /// Tipos de erro da password, pode ser incrementado para suportar
 /// outros tipos de erro como incluir valores alfa numéricos obrigátorio
 enum PasswordError { empty, length }
 
 /// Password  validada. Utile em vez de `string`
-class Password implements AuthEntity<String, PasswordError?> {
+class Password implements EntityObject<String, PasswordError?> {
   Password(this.value) {
     _error = validate(this.value);
     if (error == null) _isvalid = true;

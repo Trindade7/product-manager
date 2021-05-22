@@ -1,10 +1,10 @@
-import 'package:product_manager/core/auth/models/auth_entity.dart';
+import 'package:product_manager/core/entity_object.dart';
 
 /// Tipos de erro do login value,
 enum NameError { empty, length }
 
 /// Login  validado. Utile em vez de `string`
-class Name implements AuthEntity<String, NameError?> {
+class Name implements EntityObject<String, NameError?> {
   Name(this.value) {
     _error = validate(this.value);
     if (_error == null) _isvalid = true;
