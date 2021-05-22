@@ -41,6 +41,7 @@ class AuthRepository implements AuthRepositoryAbstract {
     } on Exception {
       throw LogoutFailure();
     }
+    print('finishe');
   }
 
   @override

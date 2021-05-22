@@ -41,6 +41,7 @@ class _NameInput extends StatelessWidget {
         return TextField(
           key: const Key('loginForm_nameInput_textField'),
           onChanged: (name) => context.read<LoginCubit>().nameChanged(name),
+          enabled: !state.status.isSubmissionInProgress,
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: Corners.mdBorder,
@@ -68,6 +69,7 @@ class _PasswordInput extends StatelessWidget {
           onChanged: (password) =>
               context.read<LoginCubit>().passwordChanged(password),
           obscureText: true,
+          enabled: !state.status.isSubmissionInProgress,
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: Corners.mdBorder,
@@ -94,13 +96,9 @@ class _LoginButton extends StatelessWidget {
           onPressed: state.status.isValid
               ? () => context.read<LoginCubit>().login()
               : null,
-          child: Text('LOGIN'),
-          // style: TextButton.styleFrom(
-          //   primary: Colors.white,
-          //   onSurface: Colors.white24,
-          //   backgroundColor: Theme.of(context).primaryColor,
-          //   // padding: EdgeInsets.all(Insets.lg),
-          // ),
+          child: !state.status.isSubmissionInProgress
+              ? Text('LOGIN')
+              : CircularProgressIndicator(),
         );
       },
     );

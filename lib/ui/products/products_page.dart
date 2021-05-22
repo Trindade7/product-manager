@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:product_manager/ui/products/widgets/product_widgets.dart';
+import 'package:product_manager/ui/products/widgets/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:product_manager/ui/products/widgets/small_screens_nav.dart';
 import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
 import 'package:provider/provider.dart';
@@ -11,24 +12,7 @@ class ProductsPage extends StatelessWidget {
     AppTheme theme = context.watch();
     const bannerIcon = 'assets/images/project_manager_icon_p.svg';
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        elevation: 5,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.filter_alt_outlined),
-            label: 'filtrar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.logout),
-            label: 'Logout',
-          ),
-        ],
-      ),
+      bottomNavigationBar: SmallScreensNav(),
       body: SingleChildScrollView(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,

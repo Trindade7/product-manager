@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:product_manager/ui/products/product_details/widgets/widgets.dart';
 import 'package:product_manager/ui/theme.dart';
-import 'package:product_manager/ui/products/widgets/product_widgets.dart';
 import 'package:product_manager/ui/widgets/separator_box.dart';
 
 class ProductDetails extends StatelessWidget {
@@ -16,7 +16,7 @@ class ProductDetails extends StatelessWidget {
         SeparatorBox.xLarge(),
         Divider(),
         SeparatorBox.xLarge(),
-        EditProductForm(theme: theme),
+        ProductForm(theme: theme),
       ],
     );
   }

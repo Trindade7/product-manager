@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
-import 'package:product_manager/ui/products/widgets/product_details.dart';
-import 'package:product_manager/ui/widgets/edit_product_form.dart';
-import 'package:product_manager/ui/widgets/product_summary.dart';
-import 'package:product_manager/ui/widgets/separator_box.dart';
+import 'package:product_manager/ui/products/product_details/widgets/product_details.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailViewSm extends StatelessWidget {
@@ -22,7 +19,7 @@ class ProductDetailViewSm extends StatelessWidget {
                 borderRadius: Corners.lgBorder,
               ),
               elevation: 2,
-              shadowColor: Colors.black26,
+              shadowColor: Colors.black26, //TODO: Extract to theme file
               child: Padding(
                 padding: const EdgeInsets.all(Insets.lg),
                 child: ProductDetails(theme: theme),

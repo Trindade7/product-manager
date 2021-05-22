@@ -3,8 +3,8 @@ import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
 import 'package:product_manager/ui/widgets/separator_box.dart';
 
-class EditProductForm extends StatelessWidget {
-  const EditProductForm({
+class ProductForm extends StatelessWidget {
+  const ProductForm({
     Key? key,
     required this.theme,
   }) : super(key: key);
