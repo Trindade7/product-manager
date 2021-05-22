@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
 import 'package:product_manager/ui/widgets/separator_box.dart';
@@ -78,6 +79,9 @@ class ProductForm extends StatelessWidget {
                   isDense: true,
                 ),
                 maxLength: 100,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                ],
               ),
             ),
           ],

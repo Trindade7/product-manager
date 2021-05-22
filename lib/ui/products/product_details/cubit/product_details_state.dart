@@ -1,15 +1,15 @@
 part of 'product_details_cubit.dart';
 
 class ProductDetailsState extends Equatable {
-  // ProductDetailsState({
-  //   this.status = FormzStatus.pure,
-  //   this.name = const NameInput.pure(),
-  //   this.password = const PasswordInput.pure(),
-  // });
+  ProductDetailsState({
+    this.status = FormzStatus.pure,
+    this.name = const NameInput.pure(),
+    this.password = const PasswordInput.pure(),
+  });
 
-  // final FormzStatus status;
-  // final NameInput name;
-  // final PasswordInput password;
+  final FormzStatus status;
+  final NameInput name;
+  final PasswordInput password;
 
   @override
   // Utilizado para comparar estados

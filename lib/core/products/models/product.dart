@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
-import 'package:product_manager/core/products/models/name.dart';
+import 'package:product_manager/core/products/models/models.dart';
 
 class Product extends Equatable {
   Product({
     required this.name,
     required this.code,
     required this.price,
-    required this.amount,
-    this.amountUnit = 'Un',
+    required this.quantity,
+    this.quantityUnit = 'Un',
   });
 
   static Product empty() {
@@ -15,8 +15,8 @@ class Product extends Equatable {
       name: Name('empty'),
       code: 'empty',
       price: 0,
-      amount: 0,
-      amountUnit: 'Un',
+      quantity: 0,
+      quantityUnit: 'Un',
     );
   }
 
@@ -31,18 +31,18 @@ class Product extends Equatable {
       name: name ?? this.name,
       code: code ?? this.code,
       price: price ?? this.price,
-      amount: amount ?? this.amount,
-      amountUnit: amountUnit ?? this.amountUnit,
+      quantity: amount ?? this.quantity,
+      quantityUnit: amountUnit ?? this.quantityUnit,
     );
   }
 
   final Name name;
   final String code;
   final double price;
-  final double amount;
-  final String amountUnit;
+  final double quantity;
+  final String quantityUnit;
 
   @override
   // Para checar igualdade
-  List<Object?> get props => [name, code, price, amount, amountUnit];
+  List<Object?> get props => [name, code, price, quantity, quantityUnit];
 }

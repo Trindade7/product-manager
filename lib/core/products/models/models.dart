@@ -1,3 +1,6 @@
-export './name.dart';
-export './password.dart';
-export './product.dart';
+export 'product.dart';
+export 'name.dart';
+export 'code.dart';
+export 'price.dart';
+export 'quantity.dart';
+export 'quantity_unit.dart';
