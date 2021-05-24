@@ -41,7 +41,7 @@ class ProductCubit extends Cubit<ProductState> {
   void saveProduct() {
     if (state.status.isInvalid) return;
 
-    emit()
-    emit(state.copyWith(quantityUnit: quantityUnit));
+    // emit()
+    // emit(state.copyWith(quantityUnit: quantityUnit));
   }
 }

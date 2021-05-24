@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:product_manager/core/products/products_repository.dart';
+import 'package:product_manager/ui/products/product_details/cubit/product_cubit.dart';
 import 'package:product_manager/ui/products/widgets/small_screens_nav.dart';
 import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
 import 'package:product_manager/ui/products/product_details/widgets/product_detail_view_sm.dart';
 import 'package:provider/provider.dart';
 
-class ProductDetailsPage extends StatelessWidget {
+class ProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppTheme theme = context.watch();
@@ -20,7 +23,13 @@ class ProductDetailsPage extends StatelessWidget {
         elevation: 1,
       ),
       bottomNavigationBar: SmallScreensNav(),
-      body: ProductDetailViewSm(),
+      body: RepositoryProvider(
+        create: (context) => ProductsRepository(),
+        child: BlocProvider<ProductCubit>(
+          create: (context) => ProductCubit(context.read<ProductsRepository>()),
+          child: ProductDetailViewSm(),
+        ),
+      ),
     );
   }
 }
