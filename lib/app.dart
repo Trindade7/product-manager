@@ -6,6 +6,7 @@ import 'package:product_manager/ui/theme.dart';
 import 'package:provider/provider.dart';
 
 import 'core/auth/auth_repository.dart';
+import 'core/products/products_repository.dart';
 
 /// Inicia a app e os serviços necessários para a sua execução
 class AppBootstraper extends StatelessWidget {
@@ -16,8 +17,15 @@ class AppBootstraper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppTheme appTheme = AppTheme.fromType(ThemeType.Blue_Light);
-    return RepositoryProvider.value(
-      value: authRepository,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider.value(
+          value: authRepository,
+        ),
+        RepositoryProvider(
+          create: (context) => ProductsRepository(),
+        ),
+      ],
       child: BlocProvider(
         create: (_) => AppCubit(authRepository: authRepository),
         child: Provider.value(
@@ -34,6 +42,33 @@ class AppBootstraper extends StatelessWidget {
     );
   }
 }
+
+// class AppBootstraper extends StatelessWidget {
+//   const AppBootstraper({Key? key, required this.authRepository})
+//       : super(key: key);
+//   final AuthRepository authRepository;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final AppTheme appTheme = AppTheme.fromType(ThemeType.Blue_Light);
+//     return RepositoryProvider.value(
+//       value: authRepository,
+//       child: BlocProvider(
+//         create: (_) => AppCubit(authRepository: authRepository),
+//         child: Provider.value(
+//           value: appTheme,
+//           child: MaterialApp(
+//             title: 'Product Manager',
+//             // TODO: ADD DYNAMIC THEMING
+//             theme: appTheme.toThemeData(),
+//             home: App(),
+//             onGenerateRoute: generateRoute,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class App extends StatefulWidget {
   @override

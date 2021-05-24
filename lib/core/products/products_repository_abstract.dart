@@ -6,6 +6,7 @@ import 'package:product_manager/core/products/models/models.dart';
 enum ProductsStatus { loading, loaded, error }
 
 abstract class ProductsRepositoryAbstract {
+  late Product selected;
   Future<void> add(Product product);
 
   Future<void> update(Product product);

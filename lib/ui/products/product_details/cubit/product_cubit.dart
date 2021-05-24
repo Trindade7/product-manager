@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
+import 'package:product_manager/core/products/models/models.dart';
 
 import 'package:product_manager/core/products/products_repository.dart';
 import 'package:product_manager/ui/products/product_details/models/models.dart';
@@ -38,10 +39,21 @@ class ProductCubit extends Cubit<ProductState> {
     emit(state.copyWith(quantityUnit: quantityUnit));
   }
 
-  void saveProduct() {
+  /// Salva/actualiza producto com dados do formulário
+  void saveProduct({bool update = false}) async {
     if (state.status.isInvalid) return;
+    emit(state.copyWith(isSubmiting: true));
 
-    // emit()
-    // emit(state.copyWith(quantityUnit: quantityUnit));
+    try {
+      await _productsRepository.add(Product(
+        name: Name(state.name.value),
+        code: Code(state.code.value), price: Price(state.price.value),
+        quantity: Quantity(state.quantity.value),
+        quantityUnit: QuantityUnit('Un'), // criar input
+      ));
+      emit(state.copyWith(isSubmissionSuccess: true));
+    } on Exception {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
   }
 }

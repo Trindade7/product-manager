@@ -10,7 +10,21 @@ class ProductsCubit extends Cubit<ProductsState> {
   final _emptyProduct = Product.empty();
 
   ProductsCubit(this._productsRepository)
-      : super(ProductsInitial(Product.empty()));
+      : super(ProductsInitial(Product.empty())) {
+    getProducts();
+  }
+
+  void selectProduct(Product product) {
+    _productsRepository.selected = product;
+  }
+
+  void delete(Product product) async {
+    try {
+      await _productsRepository.delete(product);
+    } catch (e) {
+      print(e);
+    }
+  }
 
   Future<void> getProducts({
     ProductFilter orderBy = ProductFilter.dateDesc,

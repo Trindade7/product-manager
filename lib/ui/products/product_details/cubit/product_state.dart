@@ -31,7 +31,9 @@ class ProductState extends Equatable {
   /// Cria um novo `ProductState` com os dados actualizados
   //? TODO: melhorar implementation
   ProductState copyWith({
-    bool updateStatus = false, // auto actualiza o status
+    bool isSubmiting = false,
+    bool isSubmissionSuccess = false,
+    bool isSubmissionFailure = false,
     FormzStatus? status,
     NameInput? name,
     CodeInput? code,
@@ -45,16 +47,24 @@ class ProductState extends Equatable {
     quantity = quantity ?? this.quantity;
     quantityUnit = quantityUnit ?? this.quantityUnit;
 
+    // actualiza o estado de submissão ou valida os campos do formulário
+    if (isSubmiting) {
+      status = FormzStatus.submissionInProgress;
+    } else if (isSubmissionSuccess) {
+      status = FormzStatus.submissionSuccess;
+    } else if (isSubmissionFailure) {
+      status = FormzStatus.submissionFailure;
+    } else {
+      status = Formz.validate([
+        name,
+        code,
+        price,
+        quantity,
+        quantityUnit,
+      ]);
+    }
+
     // Evita ter que validar o estado no cubit sempre que um valor mudar
-    updateStatus
-        ? status = Formz.validate([
-            name,
-            code,
-            price,
-            quantity,
-            quantityUnit,
-          ])
-        : status = this.status;
     return ProductState(
       status: status,
       name: name,

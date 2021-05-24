@@ -23,8 +23,8 @@ class SmallScreensNav extends StatelessWidget {
       },
       items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: 'search',
+          icon: Icon(Icons.list_rounded),
+          label: 'Productos',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.filter_alt_outlined),

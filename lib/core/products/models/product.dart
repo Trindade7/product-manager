@@ -7,40 +7,40 @@ class Product extends Equatable {
     required this.code,
     required this.price,
     required this.quantity,
-    this.quantityUnit = 'Un',
+    required this.quantityUnit,
   });
 
   static Product empty() {
     return Product(
       name: Name('empty'),
-      code: 'empty',
-      price: 0,
-      quantity: 0,
-      quantityUnit: 'Un',
+      code: Code('empty'),
+      price: Price(0),
+      quantity: Quantity(0),
+      quantityUnit: QuantityUnit('Un'),
     );
   }
 
   Product copyWith({
     Name? name,
-    String? code,
-    double? price,
-    double? amount,
-    String? amountUnit,
+    Code? code,
+    Price? price,
+    Quantity? quantity,
+    QuantityUnit? quantityUnit,
   }) {
     return Product(
       name: name ?? this.name,
       code: code ?? this.code,
       price: price ?? this.price,
-      quantity: amount ?? this.quantity,
-      quantityUnit: amountUnit ?? this.quantityUnit,
+      quantity: quantity ?? this.quantity,
+      quantityUnit: quantityUnit ?? this.quantityUnit,
     );
   }
 
   final Name name;
-  final String code;
-  final double price;
-  final double quantity;
-  final String quantityUnit;
+  final Code code;
+  final Price price;
+  final Quantity quantity;
+  late QuantityUnit quantityUnit;
 
   @override
   // Para checar igualdade

@@ -15,6 +15,7 @@ enum ProductFilter {
 }
 
 class ProductsRepository implements ProductsRepositoryAbstract {
+  Product selected = Product.empty();
   final List<Product> _products = [];
 
   @override

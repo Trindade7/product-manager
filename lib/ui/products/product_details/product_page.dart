@@ -23,12 +23,9 @@ class ProductPage extends StatelessWidget {
         elevation: 1,
       ),
       bottomNavigationBar: SmallScreensNav(),
-      body: RepositoryProvider(
-        create: (context) => ProductsRepository(),
-        child: BlocProvider<ProductCubit>(
-          create: (context) => ProductCubit(context.read<ProductsRepository>()),
-          child: ProductDetailViewSm(),
-        ),
+      body: BlocProvider<ProductCubit>(
+        create: (_) => ProductCubit(context.read<ProductsRepository>()),
+        child: ProductDetailViewSm(),
       ),
     );
   }

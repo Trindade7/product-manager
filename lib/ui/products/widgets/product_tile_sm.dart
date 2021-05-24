@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:product_manager/core/products/models/product.dart';
 import 'package:product_manager/ui/router/router.dart';
 import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
@@ -8,8 +9,17 @@ import 'package:product_manager/ui/widgets/square_icon_button.dart';
 import 'package:provider/provider.dart';
 
 class ProductTileSm extends StatelessWidget {
-  ProductTileSm({Key? key, this.selected = false}) : super(key: key);
+  ProductTileSm({
+    Key? key,
+    this.tapCallback,
+    this.selected = false,
+    required this.product,
+    this.deleteCallback,
+  }) : super(key: key);
   final selected;
+  final Product product;
+  final void Function(Product product)? tapCallback;
+  final void Function()? deleteCallback;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +58,7 @@ class ProductTileSm extends StatelessWidget {
                       size: IconSizes.md,
                     ),
                     selected: selected,
-                    onPressedCallback: () {},
+                    onPressedCallback: deleteCallback,
                   ),
                   SeparatorBox.medium(),
                   // Nome e códio do producto
@@ -59,14 +69,14 @@ class ProductTileSm extends StatelessWidget {
                       children: [
                         // Nome
                         Text(
-                          '200x Apples',
+                          product.name.value,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyles.body3,
                         ),
                         SeparatorBox.small(),
                         // Códio
                         Text(
-                          'PR0DUCTC0D3',
+                          product.code.value,
                           style: Theme.of(context).textTheme.caption,
                         ),
                       ],
@@ -79,14 +89,14 @@ class ProductTileSm extends StatelessWidget {
                     children: [
                       // Preço
                       Text(
-                        '£200.00',
+                        '\$ ${product.price.value}',
                         style: TextStyles.body1
                             .copyWith(color: theme.shift(theme.accent1, 0.1)),
                       ),
                       const SeparatorBox.small(),
                       // Stock
                       Text(
-                        '1000un',
+                        '${product.quantity.value} ${product.quantityUnit.value}',
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ],

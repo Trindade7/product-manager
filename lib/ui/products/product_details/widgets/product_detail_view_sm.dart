@@ -12,7 +12,10 @@ class ProductDetailViewSm extends StatelessWidget {
     return Center(
       child: SingleChildScrollView(
         child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: 450, minWidth: 300),
+          constraints: BoxConstraints(
+            maxWidth: 450,
+            minWidth: 300,
+          ),
           child: Container(
             child: Card(
               shape: RoundedRectangleBorder(

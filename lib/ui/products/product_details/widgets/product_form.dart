@@ -23,61 +23,30 @@ class ProductForm extends StatelessWidget {
           'Editar',
           style: TextStyles.h3,
         ),
-        SeparatorBox.large(),
         //Nome
         _NameInput(),
         SeparatorBox.medium(),
-        // Código
-        _CodeInput(),
+        // Código e Preço
+        Row(
+          children: [
+            Expanded(child: _CodeInput()),
+            Expanded(child: _PriceInput()),
+          ],
+        ),
         SeparatorBox.small(),
-        // Quantidade e Preço
+        // Quantidade e unidade
         Row(
           children: [
             // Quantidade
-            Expanded(
-              child: _QuantityInput(),
-            ),
+            Expanded(child: _QuantityInput()),
             SeparatorBox.small(),
-            // Preço
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: Corners.smBorder,
-                  ),
-                  hintText: "Preço...",
-                  contentPadding: EdgeInsets.all(Insets.sm),
-                  isDense: true,
-                ),
-                maxLength: 100,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                ],
-              ),
-            ),
+            // unidade
+            Expanded(child: _QuantityUnitInput()),
           ],
         ),
         SeparatorBox.xLarge(),
         // Salvar
-        Row(
-          children: [
-            Expanded(
-              child: TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: Corners.mdBorder,
-                  ),
-                ),
-                child: Text(
-                  'Salvar',
-                  style: TextStyles.title1.copyWith(color: Colors.white),
-                ),
-              ),
-            ),
-          ],
-        ),
+        _SaveButton()
       ],
     );
   }
@@ -92,7 +61,7 @@ class _NameInput extends _GenericInputField {
               context.read<ProductCubit>().nameChanged(name),
           hintText: "Nome...",
           errorText: (state) => state.name.invalid
-              ? 'O nome tem que ter pelo menos 2 carácteres e no máximo 100'
+              ? 'Pelo menos 2 carácteres e no máximo 100'
               : null,
           maxLines: 3,
           minLines: 1,
@@ -109,7 +78,7 @@ class _CodeInput extends _GenericInputField {
               context.read<ProductCubit>().codeChanged(code),
           hintText: "Código...",
           errorText: (state) => state.code.invalid
-              ? 'O Código tem que ter pelo menos 2 carácteres e no máximo 100'
+              ? 'Pelo menos 2 carácteres e no máximo 100'
               : null,
         );
 }
@@ -117,14 +86,14 @@ class _CodeInput extends _GenericInputField {
 class _PriceInput extends _GenericInputField {
   _PriceInput()
       : super(
-          key: const Key('loginForm_codeInput_textField'),
+          key: const Key('loginForm_pricecodeInput_textField'),
           buildWhen: (previous, current) => previous.price != current.price,
           onChanged: (price, context) => context
               .read<ProductCubit>()
               .priceChanged(double.tryParse(price) ?? -1),
           hintText: "Preço...",
           errorText: (state) => state.code.invalid
-              ? 'O Preço tem que ser um valor maior que 0 e menor que 10000000000'
+              ? 'Valor tem que ser  entre 0 e 10000000000'
               : null,
         );
 }
@@ -132,16 +101,15 @@ class _PriceInput extends _GenericInputField {
 class _QuantityInput extends _GenericInputField {
   _QuantityInput()
       : super(
-          key: const Key('loginForm_codeInput_textField'),
+          key: const Key('loginForm_quantityInput_textField'),
           buildWhen: (previous, current) =>
               previous.quantity != current.quantity,
           onChanged: (quantity, context) => context
               .read<ProductCubit>()
               .quantityChanged(double.tryParse(quantity) ?? -1),
           hintText: "Quantidade do stock...",
-          errorText: (state) => state.code.invalid
-              ? 'A quantidade tem que ser um valor maior que 0 e menor que 100000'
-              : null,
+          errorText: (state) =>
+              state.code.invalid ? 'Valor tem que ser  entre 0 e 100000' : null,
           inputFormatters: [
             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
           ],
@@ -151,14 +119,14 @@ class _QuantityInput extends _GenericInputField {
 class _QuantityUnitInput extends _GenericInputField {
   _QuantityUnitInput()
       : super(
-          key: const Key('loginForm_codeInput_textField'),
+          key: const Key('loginForm_quantityUnitInput_textField'),
           buildWhen: (previous, current) =>
               previous.quantityUnit != current.quantityUnit,
           onChanged: (quantityUnit, context) =>
               context.read<ProductCubit>().quantityUnitChanged(quantityUnit),
           hintText: "Unidade de quantidade...",
           errorText: (state) => state.code.invalid
-              ? 'A unidade de quantidade tem que ter pelo menos 2 carácteres e no máximo 5'
+              ? 'Pelo menos 2 carácteres e no máximo 5'
               : null,
         );
 }
@@ -197,6 +165,7 @@ class _GenericInputField extends StatelessWidget {
           enabled: !state.status.isSubmissionInProgress,
           decoration: InputDecoration(
             hintText: hintText,
+            labelText: hintText,
             errorText: errorText(state),
             border: OutlineInputBorder(
               borderRadius: Corners.smBorder,
@@ -214,21 +183,34 @@ class _GenericInputField extends StatelessWidget {
   }
 }
 
-// class _LoginButton extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<ProductCubit, ProductState>(
-//       buildWhen: (previous, current) => previous.status != current.status,
-//       builder: (context, state) {
-//         return TextButton(
-//           onPressed: state.status.isValid
-//               ? () => context.read<ProductCubit>().login()
-//               : null,
-//           child: !state.status.isSubmissionInProgress
-//               ? Text('LOGIN')
-//               : CircularProgressIndicator(),
-//         );
-//       },
-//     );
-//   }
-// }
+class _SaveButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ProductCubit, ProductState>(
+      buildWhen: (previous, current) => previous.status != current.status,
+      builder: (context, state) {
+        return TextButton(
+          onPressed: state.status.isValid
+              ? () => context.read<ProductCubit>().saveProduct()
+              : null,
+          style: TextButton.styleFrom(
+            backgroundColor: Theme.of(context).primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: Corners.mdBorder,
+            ),
+          ),
+          child: !state.status.isSubmissionInProgress
+              ? Text(
+                  'Salvar',
+                  style: TextStyles.title1.copyWith(
+                    color: state.status.isValid ? Colors.white : Colors.white54,
+                  ),
+                )
+              : CircularProgressIndicator(
+                  backgroundColor: Colors.white,
+                ),
+        );
+      },
+    );
+  }
+}

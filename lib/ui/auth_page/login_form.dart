@@ -97,8 +97,19 @@ class _LoginButton extends StatelessWidget {
               ? () => context.read<LoginCubit>().login()
               : null,
           child: !state.status.isSubmissionInProgress
-              ? Text('LOGIN')
-              : CircularProgressIndicator(),
+              ? Text(
+                  'LOGIN',
+                  style: TextStyles.title1.copyWith(
+                    color: state.status.isValid ? Colors.white : Colors.white54,
+                  ),
+                )
+              : CircularProgressIndicator(backgroundColor: Colors.white),
+          style: TextButton.styleFrom(
+            backgroundColor: Theme.of(context).primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: Corners.mdBorder,
+            ),
+          ),
         );
       },
     );
