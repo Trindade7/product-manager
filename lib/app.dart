@@ -6,7 +6,7 @@ import 'package:product_manager/ui/theme.dart';
 import 'package:provider/provider.dart';
 
 import 'core/auth/auth_repository.dart';
-import 'core/products/products_repository.dart';
+import 'core/products/data/products_repository_objectbox.dart';
 
 /// Inicia a app e os serviços necessários para a sua execução
 class AppBootstraper extends StatelessWidget {
@@ -23,7 +23,7 @@ class AppBootstraper extends StatelessWidget {
           value: authRepository,
         ),
         RepositoryProvider(
-          create: (context) => ProductsRepository(),
+          create: (context) => ProductsRepositoryObjectbox(),
         ),
       ],
       child: BlocProvider(
@@ -42,33 +42,6 @@ class AppBootstraper extends StatelessWidget {
     );
   }
 }
-
-// class AppBootstraper extends StatelessWidget {
-//   const AppBootstraper({Key? key, required this.authRepository})
-//       : super(key: key);
-//   final AuthRepository authRepository;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final AppTheme appTheme = AppTheme.fromType(ThemeType.Blue_Light);
-//     return RepositoryProvider.value(
-//       value: authRepository,
-//       child: BlocProvider(
-//         create: (_) => AppCubit(authRepository: authRepository),
-//         child: Provider.value(
-//           value: appTheme,
-//           child: MaterialApp(
-//             title: 'Product Manager',
-//             // TODO: ADD DYNAMIC THEMING
-//             theme: appTheme.toThemeData(),
-//             home: App(),
-//             onGenerateRoute: generateRoute,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class App extends StatefulWidget {
   @override
@@ -96,17 +69,17 @@ class _AppState extends State<App> {
                 );
                 break;
               case AppStatus.unauthenticated:
-                _navigator.pushNamedAndRemoveUntil(
-                  Routes.routeAuth,
-                  (route) => false,
-                );
+                // _navigator.pushNamedAndRemoveUntil(
+                //   Routes.routeAuth,
+                //   (route) => false,
+                // );
 
                 // Delayed routing para dar tempo de observar a loading animation
-                // (() async => await Future.delayed(Duration(seconds: 5))
-                //     .then((value) => _navigator.pushNamedAndRemoveUntil(
-                //           Routes.routeAuth,
-                //           (route) => false,
-                //         )))();
+                (() async => await Future.delayed(Duration(seconds: 5))
+                    .then((value) => _navigator.pushNamedAndRemoveUntil(
+                          Routes.routeAuth,
+                          (route) => false,
+                        )))();
 
                 break;
               default:
