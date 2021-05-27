@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:objectbox/objectbox.dart';
 import 'package:product_manager/ui/app/app_cubit.dart';
 import 'package:product_manager/ui/router/router.dart';
 import 'package:product_manager/ui/theme.dart';
@@ -10,9 +11,14 @@ import 'core/products/data/products_repository_objectbox.dart';
 
 /// Inicia a app e os serviços necessários para a sua execução
 class AppBootstraper extends StatelessWidget {
-  const AppBootstraper({Key? key, required this.authRepository})
-      : super(key: key);
+  const AppBootstraper({
+    Key? key,
+    required this.authRepository,
+    required this.store,
+  }) : super(key: key);
+
   final AuthRepository authRepository;
+  final Store store;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,7 @@ class AppBootstraper extends StatelessWidget {
           value: authRepository,
         ),
         RepositoryProvider(
-          create: (context) => ProductsRepositoryObjectbox(),
+          create: (context) => ProductsRepositoryObjectbox(store: store),
         ),
       ],
       child: BlocProvider(

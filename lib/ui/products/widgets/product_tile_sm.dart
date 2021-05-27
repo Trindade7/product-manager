@@ -14,12 +14,12 @@ class ProductTileSm extends StatelessWidget {
     this.tapCallback,
     this.selected = false,
     required this.product,
-    this.deleteCallback,
+    required this.deleteCallback,
   }) : super(key: key);
   final selected;
   final Product product;
   final void Function(Product product)? tapCallback;
-  final void Function()? deleteCallback;
+  final void Function() deleteCallback;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class ProductTileSm extends StatelessWidget {
                       size: IconSizes.md,
                     ),
                     selected: selected,
-                    onPressedCallback: deleteCallback,
+                    onPressedCallback: () => deleteCallback(),
                   ),
                   SeparatorBox.medium(),
                   // Nome e códio do producto

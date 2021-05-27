@@ -3,6 +3,7 @@ import 'package:product_manager/core/products/models/models.dart';
 
 class Product extends Equatable {
   Product({
+    required this.id, //? TODO: id field should be better abstracted?
     required this.name,
     required this.code,
     required this.price,
@@ -10,17 +11,19 @@ class Product extends Equatable {
     required this.quantityUnit,
   });
 
-  static Product empty() {
-    return Product(
-      name: Name('empty'),
-      code: Code('empty'),
-      price: Price(0),
-      quantity: Quantity(0),
-      quantityUnit: QuantityUnit('Un'),
-    );
-  }
+  // Creates an empty product
+  Product.empty()
+      : this(
+          id: 0,
+          name: Name('--'),
+          code: Code('--'),
+          price: Price(0),
+          quantity: Quantity(0),
+          quantityUnit: QuantityUnit('Un'),
+        );
 
   Product copyWith({
+    int? id,
     Name? name,
     Code? code,
     Price? price,
@@ -28,6 +31,7 @@ class Product extends Equatable {
     QuantityUnit? quantityUnit,
   }) {
     return Product(
+      id: id ?? this.id,
       name: name ?? this.name,
       code: code ?? this.code,
       price: price ?? this.price,
@@ -36,13 +40,14 @@ class Product extends Equatable {
     );
   }
 
+  final int id;
   final Name name;
   final Code code;
   final Price price;
   final Quantity quantity;
-  late QuantityUnit quantityUnit;
+  final QuantityUnit quantityUnit;
 
   @override
   // Para checar igualdade
-  List<Object?> get props => [name, code, price, quantity, quantityUnit];
+  List<Object?> get props => [id, name, code, price, quantity, quantityUnit];
 }

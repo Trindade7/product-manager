@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:product_manager/core/products/products_repository.dart';
+import 'package:product_manager/core/products/models/models.dart';
 import 'package:product_manager/ui/products/product_details/cubit/product_cubit.dart';
 import 'package:product_manager/ui/products/widgets/small_screens_nav.dart';
 import 'package:product_manager/ui/styles.dart';

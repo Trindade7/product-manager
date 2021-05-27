@@ -2,8 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:product_manager/core/products/models/models.dart';
-
-import 'package:product_manager/core/products/products_repository.dart';
 import 'package:product_manager/ui/products/product_details/models/models.dart';
 
 part 'product_state.dart';
@@ -46,6 +44,7 @@ class ProductCubit extends Cubit<ProductState> {
 
     try {
       await _productsRepository.add(Product(
+        id: 0,
         name: Name(state.name.value),
         code: Code(state.code.value), price: Price(state.price.value),
         quantity: Quantity(state.quantity.value),

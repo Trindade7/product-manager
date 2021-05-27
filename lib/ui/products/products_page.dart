@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_manager/core/products/models/models.dart';
-import 'package:product_manager/core/products/products_repository.dart';
 import 'package:product_manager/ui/products/cubit/products_cubit.dart';
 import 'package:product_manager/ui/products/widgets/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,7 +14,6 @@ class ProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppTheme theme = context.watch();
-    ProductsRepository productsRepository = context.watch();
     const bannerIcon = 'assets/images/project_manager_icon_p.svg';
     return Scaffold(
       bottomNavigationBar: SmallScreensNav(),
