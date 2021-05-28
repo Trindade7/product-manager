@@ -37,6 +37,10 @@ class ProductsPage extends StatelessWidget {
               width: double.infinity,
             ),
             ProductList(),
+            FloatingActionButton(
+              onPressed: () =>
+                  Navigator.pushNamed(context, Routes.routeProductDetails),
+            )
           ],
         ),
       ),

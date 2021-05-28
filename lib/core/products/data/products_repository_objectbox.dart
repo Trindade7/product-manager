@@ -7,6 +7,7 @@ import 'package:product_manager/objectbox.g.dart';
 /// ObectBox database implementation of ProductsRepository
 class ProductsRepositoryObjectbox implements ProductsRepository {
   ProductsRepositoryObjectbox({required Store store}) {
+    this._store = store;
     this._productBox = _store.box<ProductAdapter>();
   }
 
@@ -31,7 +32,7 @@ class ProductsRepositoryObjectbox implements ProductsRepository {
     if (query == _query) return Future.value(_products);
 
     try {
-      _products = _productBox.getAll().map((p) => p.toProduct()).toList();
+      _products = _productBox.getAll().map((p) => toProduct(p)).toList();
       return Future.value(_products);
     } on Exception {
       throw ProductsRepositoryException();
@@ -43,8 +44,8 @@ class ProductsRepositoryObjectbox implements ProductsRepository {
     if (product == this.selected) return;
 
     try {
-      int id = this._productBox.put(ProductAdapter.fromProduct(product));
-      this.selected = this._productBox.get(id)!.toProduct();
+      int id = this._productBox.put(fromProduct(product));
+      this.selected = toProduct(this._productBox.get(id)!);
     } on Exception {
       throw ProductsRepositoryException();
     }
@@ -65,7 +66,7 @@ class ProductsRepositoryObjectbox implements ProductsRepository {
     var p = this._productBox.get(id);
 
     if (p != null)
-      return Future.value(p.toProduct());
+      return Future.value(toProduct(p));
     else
       throw ProductsRepositoryException(); // create detailed expection
   }

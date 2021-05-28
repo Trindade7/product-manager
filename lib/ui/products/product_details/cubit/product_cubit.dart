@@ -8,8 +8,11 @@ part 'product_state.dart';
 
 class ProductCubit extends Cubit<ProductState> {
   final ProductsRepository _productsRepository;
+  late Product selected;
 
-  ProductCubit(this._productsRepository) : super(ProductState());
+  ProductCubit(this._productsRepository) : super(ProductState()) {
+    this.selected = this._productsRepository.selected;
+  }
 
   //  Atualiza o valor do estado quando o valor do Product altera
   void nameChanged(String value) {
@@ -44,7 +47,7 @@ class ProductCubit extends Cubit<ProductState> {
 
     try {
       await _productsRepository.add(Product(
-        id: 0,
+        id: this.selected.id,
         name: Name(state.name.value),
         code: Code(state.code.value), price: Price(state.price.value),
         quantity: Quantity(state.quantity.value),

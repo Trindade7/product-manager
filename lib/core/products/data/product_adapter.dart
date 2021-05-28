@@ -6,6 +6,7 @@ import 'package:product_manager/core/products/models/product.dart';
 class ProductAdapter {
   ProductAdapter({
     this.id = 0,
+    this.quantityUnidt = '1',
     required this.name,
     required this.code,
     required this.price,
@@ -19,23 +20,46 @@ class ProductAdapter {
   double price;
   double quantity;
   String quantityUnit;
+  String? quantityUnidt;
 
-  ProductAdapter.fromProduct(Product product)
-      : id = product.id,
-        name = product.name.value,
-        code = product.code.value,
-        price = product.price.value,
-        quantity = product.quantity.value,
-        quantityUnit = product.quantityUnit.value;
+  // @Transient()
+  // ProductAdapter.fromProduct(Product product)
+  //     : id = product.id,
+  //       name = product.name.value,
+  //       code = product.code.value,
+  //       price = product.price.value,
+  //       quantity = product.quantity.value,
+  //       quantityUnit = product.quantityUnit.value;
+  // @Transient()
+  // Product toProduct() {
+  //   return Product(
+  //     id: this.id,
+  //     name: Name(this.name),
+  //     code: Code(this.code),
+  //     price: Price(this.price),
+  //     quantity: Quantity(this.quantity),
+  //     quantityUnit: QuantityUnit(this.quantityUnit),
+  //   );
+  // }
+}
 
-  Product toProduct() {
-    return Product(
-      id: this.id,
-      name: Name(this.name),
-      code: Code(this.code),
-      price: Price(this.price),
-      quantity: Quantity(this.quantity),
-      quantityUnit: QuantityUnit(this.quantityUnit),
-    );
-  }
+ProductAdapter fromProduct(Product product) {
+  return ProductAdapter(
+      id: product.id,
+      name: product.name.value,
+      code: product.code.value,
+      price: product.price.value,
+      quantity: product.quantity.value,
+      quantityUnit: product.quantityUnit.value);
+}
+
+Product toProduct(ProductAdapter product) {
+  return Product(
+    id: product.id,
+    name: Name(product.name),
+    code: Code(product.code),
+    price: Price(product.price),
+    quantity: Quantity(product.quantity),
+    quantityUnit: QuantityUnit(product.quantityUnit),
+  );
 }

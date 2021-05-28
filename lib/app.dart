@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:objectbox/objectbox.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:product_manager/objectbox.g.dart';
 import 'package:product_manager/ui/app/app_cubit.dart';
 import 'package:product_manager/ui/router/router.dart';
 import 'package:product_manager/ui/theme.dart';
@@ -8,32 +13,58 @@ import 'package:provider/provider.dart';
 
 import 'core/auth/auth_repository.dart';
 import 'core/products/data/products_repository_objectbox.dart';
+import 'core/products/models/products_repository.dart';
 
 /// Inicia a app e os serviços necessários para a sua execução
-class AppBootstraper extends StatelessWidget {
+class AppBootstraper extends StatefulWidget {
   const AppBootstraper({
     Key? key,
     required this.authRepository,
-    required this.store,
   }) : super(key: key);
 
   final AuthRepository authRepository;
-  final Store store;
+
+  @override
+  _AppBootstraperState createState() => _AppBootstraperState();
+}
+
+class _AppBootstraperState extends State<AppBootstraper> {
+  late Store _store;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Inicializa a store com o path desejado
+    getApplicationDocumentsDirectory().then((dir) => {
+          _store = Store(
+            getObjectBoxModel(),
+            directory: join(dir.path, 'objectbox'),
+          )
+        });
+  }
+
+  @override
+  void dispose() {
+    _store.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final AppTheme appTheme = AppTheme.fromType(ThemeType.Blue_Light);
+
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(
-          value: authRepository,
+          value: widget.authRepository,
         ),
-        RepositoryProvider(
-          create: (context) => ProductsRepositoryObjectbox(store: store),
+        RepositoryProvider<ProductsRepository>(
+          create: (context) => ProductsRepositoryObjectbox(store: _store),
         ),
       ],
       child: BlocProvider(
-        create: (_) => AppCubit(authRepository: authRepository),
+        create: (_) => AppCubit(authRepository: widget.authRepository),
         child: Provider.value(
           value: appTheme,
           child: MaterialApp(
@@ -49,12 +80,7 @@ class AppBootstraper extends StatelessWidget {
   }
 }
 
-class App extends StatefulWidget {
-  @override
-  _AppState createState() => _AppState();
-}
-
-class _AppState extends State<App> {
+class App extends StatelessWidget {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   NavigatorState get _navigator => _navigatorKey.currentState!;
@@ -75,17 +101,17 @@ class _AppState extends State<App> {
                 );
                 break;
               case AppStatus.unauthenticated:
-                // _navigator.pushNamedAndRemoveUntil(
-                //   Routes.routeAuth,
-                //   (route) => false,
-                // );
+                _navigator.pushNamedAndRemoveUntil(
+                  Routes.routeAuth,
+                  (route) => false,
+                );
 
                 // Delayed routing para dar tempo de observar a loading animation
-                (() async => await Future.delayed(Duration(seconds: 5))
-                    .then((value) => _navigator.pushNamedAndRemoveUntil(
-                          Routes.routeAuth,
-                          (route) => false,
-                        )))();
+                // (() async => await Future.delayed(Duration(seconds: 5))
+                //     .then((value) => _navigator.pushNamedAndRemoveUntil(
+                //           Routes.routeAuth,
+                //           (route) => false,
+                //         )))();
 
                 break;
               default:
