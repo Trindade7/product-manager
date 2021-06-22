@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_manager/core/products/products_repository.dart';
@@ -9,6 +10,15 @@ import 'package:product_manager/ui/products/product_details/widgets/product_deta
 import 'package:provider/provider.dart';
 
 class ProductPage extends StatelessWidget {
+  static const path = 'products/:id';
+
+  final String id;
+
+  const ProductPage({
+    Key? key,
+    @PathParam('id') this.id = '0',
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     AppTheme theme = context.watch();

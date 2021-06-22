@@ -8,6 +8,8 @@ import 'package:product_manager/ui/theme.dart';
 // https://flutter.dev/docs/development/ui/advanced/splash-screen#initializing-the-app
 // para definir o launch view
 class SplashPage extends StatelessWidget {
+  static const path = '/splash';
+
   @override
   Widget build(BuildContext context) {
     AppTheme theme = context.watch();
