@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:product_manager/core/auth/auth_repository_abstract.dart';
+import 'package:product_manager/core/auth/models/models.dart';
 
 /// Usado para erros no login
 class LoginFailure implements Exception {}
@@ -18,8 +19,10 @@ class AuthRepository implements AuthRepositoryAbstract {
   }
 
   @override
-  // TODO: implement login
-  Future<void> login({String name, String password}) async {
+  Future<void> login({required Name name, required Password password}) async {
+    if (!name.isValid || !password.isValid) {
+      throw LoginFailure();
+    }
     try {
       await Future<void>.delayed(const Duration(seconds: 1));
       _controller.add(AuthStatus.authenticated);
@@ -29,7 +32,6 @@ class AuthRepository implements AuthRepositoryAbstract {
   }
 
   @override
-  // TODO: implement real logout
   Future<void> logout() async {
     try {
       await Future<void>.delayed(const Duration(seconds: 1));
@@ -37,6 +39,7 @@ class AuthRepository implements AuthRepositoryAbstract {
     } on Exception {
       throw LogoutFailure();
     }
+    print('finishe');
   }
 
   @override

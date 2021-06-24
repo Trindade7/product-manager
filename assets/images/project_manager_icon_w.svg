@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="722.828" height="281.636" viewBox="0 0 722.828 281.636">
+  <g id="project-manager-icon_w" transform="translate(-1118.311 -653.984)">
+    <g id="Group_6" data-name="Group 6" transform="translate(1118.311 653.984)">
+      <path id="Path_1" data-name="Path 1" d="M365.1,5V135.759H130.34V5ZM237.763,286.636V155.876H130.34V286.636ZM257.88,155.876V286.636H365.1V155.876ZM110.223,286.636V5H3V286.636Z" transform="translate(-3 -5)" fill="#fff"/>
+    </g>
+    <g id="Group_5" data-name="Group 5" transform="translate(1373.558 804.638)">
+      <rect id="Rectangle_2" data-name="Rectangle 2" width="467.581" height="130.752" transform="translate(0 0)" fill="#fff"/>
+      <text id="MANAGER" transform="translate(52.729 93.958)" font-size="75" font-family="OpenSans, Open Sans"><tspan x="0" y="0">MANAGER</tspan></text>
+    </g>
+    <text id="PRODUCT" transform="translate(1518.65 739.905)" fill="#fefeff" font-size="60" font-family="OpenSans, Open Sans"><tspan x="0" y="0">PRODUCT</tspan></text>
+  </g>
+</svg>

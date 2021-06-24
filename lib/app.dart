@@ -1,17 +1,73 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:product_manager/ui/app/app_cubit.dart';
+import 'ui/shared.dart';
 
-class App extends StatelessWidget {
+import 'core/auth/auth_repository.dart';
+
+/// Inicia a app e os serviços necessários para a sua execução
+class AppBootstraper extends StatelessWidget {
+  const AppBootstraper({Key? key, required this.authRepository})
+      : super(key: key);
+  final AuthRepository authRepository;
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Product Manager',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(title: Text('Product Manager')),
-        body: Center(child: const Text('HELLO')),
+    final AppTheme appTheme = AppTheme.fromType(ThemeType.Blue_Light);
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider.value(
+          value: authRepository,
+        ),
+      ],
+      child: BlocProvider(
+        create: (_) => AppCubit(authRepository: authRepository),
+        child: Provider.value(
+          value: appTheme,
+          child: App(),
+          // child: MaterialApp.router(
+          //   theme: appTheme.toThemeData(),
+          //   title: 'Product Manager',
+          //   routeInformationParser: _appRouter.defaultRouteParser(),
+          //   routerDelegate: _appRouter.delegate(),
+          // ),
+        ),
       ),
     );
+  }
+}
+
+class App extends StatefulWidget {
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  final _appRouter = AppRouter();
+
+  @override
+  Widget build(BuildContext context) {
+    final AppTheme appTheme = context.watch();
+    final AppCubit appCubit = context.watch();
+    return MaterialApp.router(
+      theme: appTheme.toThemeData(),
+      title: 'Product Manager',
+      routeInformationParser: _appRouter.defaultRouteParser(),
+      routerDelegate: AutoRouterDelegate.declarative(
+        _appRouter,
+        routes: (_) => [
+          if (appCubit.state.status == AppStatus.authenticated)
+            AppRoute()
+          else
+            AuthRoute()
+        ],
+      ),
+    );
+  }
+}
+
+class AppPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AutoRouter();
   }
 }

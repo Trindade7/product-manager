@@ -1,6 +1,8 @@
 import 'dart:core';
 import 'dart:async';
 
+import 'package:product_manager/core/auth/models/models.dart';
+
 enum AuthStatus { loading, authenticated, unauthenticated }
 
 /// Serviço para controlar a estado de autenticação do usuário
@@ -11,7 +13,7 @@ abstract class AuthRepositoryAbstract {
   /// Monitora o login status
   Stream<AuthStatus> get status;
 
-  Future<void> login({String name, String password});
+  Future<void> login({required Name name, required Password password});
 
   Future<void> logout();
 
