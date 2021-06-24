@@ -19,7 +19,6 @@ class AuthRepository implements AuthRepositoryAbstract {
   }
 
   @override
-  // TODO: implement login
   Future<void> login({required Name name, required Password password}) async {
     if (!name.isValid || !password.isValid) {
       throw LoginFailure();
@@ -33,7 +32,6 @@ class AuthRepository implements AuthRepositoryAbstract {
   }
 
   @override
-  // TODO: implement real logout
   Future<void> logout() async {
     try {
       await Future<void>.delayed(const Duration(seconds: 1));

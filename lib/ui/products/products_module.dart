@@ -6,7 +6,7 @@ import 'package:product_manager/core/products/products_repository.dart';
 import 'cubit/products_cubit.dart';
 
 class ProductsModule extends StatelessWidget {
-  static const path = '/products';
+  static const path = 'products';
   const ProductsModule({Key? key}) : super(key: key);
 
   @override

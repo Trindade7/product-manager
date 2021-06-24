@@ -15,6 +15,7 @@ class ProductsPage extends StatelessWidget {
     const bannerIcon = 'assets/images/project_manager_icon_p.svg';
     return Scaffold(
       bottomNavigationBar: SmallScreensNav(),
+      floatingActionButton: _AddProductButton(inconOnly: true),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -60,43 +61,43 @@ class ProductList extends StatelessWidget {
               : Expanded(
                   child: ListView(
                     children: [
-                      // ...state.products.map(
-                      //   (product) => ProductTileSm(
-                      //     product: product,
-                      //     deleteCallback: () =>
-                      //         context.read<ProductsCubit>().delete(product),
-                      //   ),
+                      ...state.products.map(
+                        (product) => ProductTileSm(
+                          product: product,
+                          deleteCallback: () =>
+                              context.read<ProductsCubit>().delete(product),
+                        ),
+                      ),
+                      // ProductTileSm(
+                      //   product: Product.empty(),
+                      //   deleteCallback: () => context
+                      //       .read<ProductsCubit>()
+                      //       .delete(Product.empty()),
                       // ),
-                      ProductTileSm(
-                        product: Product.empty(),
-                        deleteCallback: () => context
-                            .read<ProductsCubit>()
-                            .delete(Product.empty()),
-                      ),
-                      ProductTileSm(
-                        product: Product.empty(),
-                        deleteCallback: () => context
-                            .read<ProductsCubit>()
-                            .delete(Product.empty()),
-                      ),
-                      ProductTileSm(
-                        product: Product.empty(),
-                        deleteCallback: () => context
-                            .read<ProductsCubit>()
-                            .delete(Product.empty()),
-                      ),
-                      ProductTileSm(
-                        product: Product.empty(),
-                        deleteCallback: () => context
-                            .read<ProductsCubit>()
-                            .delete(Product.empty()),
-                      ),
-                      ProductTileSm(
-                        product: Product.empty(),
-                        deleteCallback: () => context
-                            .read<ProductsCubit>()
-                            .delete(Product.empty()),
-                      ),
+                      // ProductTileSm(
+                      //   product: Product.empty(),
+                      //   deleteCallback: () => context
+                      //       .read<ProductsCubit>()
+                      //       .delete(Product.empty()),
+                      // ),
+                      // ProductTileSm(
+                      //   product: Product.empty(),
+                      //   deleteCallback: () => context
+                      //       .read<ProductsCubit>()
+                      //       .delete(Product.empty()),
+                      // ),
+                      // ProductTileSm(
+                      //   product: Product.empty(),
+                      //   deleteCallback: () => context
+                      //       .read<ProductsCubit>()
+                      //       .delete(Product.empty()),
+                      // ),
+                      // ProductTileSm(
+                      //   product: Product.empty(),
+                      //   deleteCallback: () => context
+                      //       .read<ProductsCubit>()
+                      //       .delete(Product.empty()),
+                      // ),
                     ],
                   ),
                 );
@@ -118,22 +119,34 @@ class ProductList extends StatelessWidget {
 }
 
 class _AddProductButton extends StatelessWidget {
+  final bool inconOnly;
+
+  const _AddProductButton({Key? key, this.inconOnly = false}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: () => context.navigateTo(ProductRoute()),
-        style: TextButton.styleFrom(
-          backgroundColor: Theme.of(context).primaryColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: Corners.mdBorder,
-          ),
+      onPressed: () => context.navigateTo(ProductRoute()),
+      style: TextButton.styleFrom(
+        backgroundColor: Theme.of(context).primaryColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: Corners.mdBorder,
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Text(
-            'adicionar',
-            style: TextStyles.title1.copyWith(color: Colors.white),
-          ),
-        ));
+        minimumSize: Size(Insets.md, Insets.md),
+        padding: EdgeInsets.all(Insets.md),
+        elevation: 5,
+      ),
+      child: inconOnly
+          ? Icon(
+              Icons.add,
+              color: Colors.white,
+            )
+          : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                'adicionar',
+                style: TextStyles.title1.copyWith(color: Colors.white),
+              ),
+            ),
+    );
   }
 }

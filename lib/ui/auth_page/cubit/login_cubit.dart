@@ -10,7 +10,20 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   final AuthRepository _authRepository;
 
-  LoginCubit(this._authRepository) : super(LoginState());
+  LoginCubit(this._authRepository) : super(LoginState()) {
+    _autoPopulateForm();
+  }
+
+  /// for tests only
+  _autoPopulateForm() {
+    final name = NameInput.dirty('name');
+    final password = PasswordInput.dirty('password');
+    emit(state.copyWith(
+      name: name,
+      password: password,
+      status: Formz.validate([name, password]),
+    ));
+  }
 
   //  Atualiza o valor do estado quando o valor do login altera
   void nameChanged(String value) {

@@ -4,9 +4,6 @@ import 'ui/shared.dart';
 
 import 'core/auth/auth_repository.dart';
 
-/// inits the router
-final _appRouter = AppRouter();
-
 /// Inicia a app e os serviços necessários para a sua execução
 class AppBootstraper extends StatelessWidget {
   const AppBootstraper({Key? key, required this.authRepository})
@@ -21,26 +18,17 @@ class AppBootstraper extends StatelessWidget {
         RepositoryProvider.value(
           value: authRepository,
         ),
-        // RepositoryProvider(
-        //   create: (context) => ProductsRepository(),
-        // ),
       ],
       child: BlocProvider(
         create: (_) => AppCubit(authRepository: authRepository),
         child: Provider.value(
           value: appTheme,
-          child: MaterialApp.router(
-            theme: appTheme.toThemeData(),
-            title: 'Product Manager',
-            routeInformationParser: _appRouter.defaultRouteParser(),
-            routerDelegate: _appRouter.delegate(),
-          ),
-          // child: MaterialApp(
-          //   title: 'Product Manager',
-          //   // TODO: ADD DYNAMIC THEMING
+          child: App(),
+          // child: MaterialApp.router(
           //   theme: appTheme.toThemeData(),
-          //   home: App(),
-          //   onGenerateRoute: generateRoute,
+          //   title: 'Product Manager',
+          //   routeInformationParser: _appRouter.defaultRouteParser(),
+          //   routerDelegate: _appRouter.delegate(),
           // ),
         ),
       ),
@@ -54,74 +42,32 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
-    final _router = AutoRouter.of(context);
-    return BlocListener<AppCubit, AppState>(
-      listener: (context, state) {
-        switch (state.status) {
-          case AppStatus.authenticated:
-            _router.navigate(ProductsRoute());
-            break;
-          case AppStatus.unauthenticated:
-            _router.navigate(AuthRoute());
-            break;
-          default:
-            break;
-        }
-      },
+    final AppTheme appTheme = context.watch();
+    final AppCubit appCubit = context.watch();
+    return MaterialApp.router(
+      theme: appTheme.toThemeData(),
+      title: 'Product Manager',
+      routeInformationParser: _appRouter.defaultRouteParser(),
+      routerDelegate: AutoRouterDelegate.declarative(
+        _appRouter,
+        routes: (_) => [
+          if (appCubit.state.status == AppStatus.authenticated)
+            AppRoute()
+          else
+            AuthRoute()
+        ],
+      ),
     );
   }
 }
 
-// class App extends StatefulWidget {
-//   @override
-//   _AppState createState() => _AppState();
-// }
-
-// class _AppState extends State<App> {
-//   final _navigatorKey = GlobalKey<NavigatorState>();
-
-//   NavigatorState get _navigator => _navigatorKey.currentState!;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       navigatorKey: _navigatorKey,
-//       builder: (context, child) {
-//         // Controla o estado da app, incluindo o AuthState
-//         return BlocListener<AppCubit, AppState>(
-//           listener: (context, state) {
-//             switch (state.status) {
-//               case AppStatus.authenticated:
-//                 _navigator.pushNamedAndRemoveUntil(
-//                   Routes.routeProducts,
-//                   (route) => false,
-//                 );
-//                 break;
-//               case AppStatus.unauthenticated:
-//                 // _navigator.pushNamedAndRemoveUntil(
-//                 //   Routes.routeAuth,
-//                 //   (route) => false,
-//                 // );
-
-//                 // Delayed routing para dar tempo de observar a loading animation
-//                 (() async => await Future.delayed(Duration(seconds: 5))
-//                     .then((value) => _navigator.pushNamedAndRemoveUntil(
-//                           Routes.routeAuth,
-//                           (route) => false,
-//                         )))();
-
-//                 break;
-//               default:
-//                 break;
-//             }
-//           },
-//           child: child,
-//         );
-//       },
-//       onGenerateRoute: generateRoute,
-//       initialRoute: Routes.routeSplash,
-//     );
-//   }
-// }
+class AppPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AutoRouter();
+  }
+}

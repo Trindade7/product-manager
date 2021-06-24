@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:product_manager/app.dart';
 import 'package:product_manager/ui/auth_page/auth_page.dart';
 import 'package:product_manager/ui/products/product_details/product_page.dart';
 import 'package:product_manager/ui/products/products_module.dart';
@@ -15,18 +16,25 @@ import 'package:product_manager/ui/splash_page.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
-    RedirectRoute(path: '/', redirectTo: ProductsModule.path),
-    AutoRoute(page: AuthPage, path: AuthPage.path),
-    AutoRoute(page: SplashPage, path: SplashPage.path),
+    AutoRoute(page: SplashPage, path: SplashPage.path, initial: true),
     AutoRoute(
-      page: ProductsModule,
-      path: ProductsModule.path,
+      path: '/',
+      page: AppPage,
       children: [
-        AutoRoute(page: ProductsPage, path: ProductsPage.path),
-        AutoRoute(page: ProductPage, path: ProductPage.path),
+        RedirectRoute(path: '', redirectTo: ProductsModule.path),
+        AutoRoute(
+          page: ProductsModule,
+          path: ProductsModule.path,
+          children: [
+            AutoRoute(page: ProductsPage, path: ProductsPage.path),
+            AutoRoute(page: ProductPage, path: ProductPage.path),
+          ],
+        ),
+        RedirectRoute(path: '*', redirectTo: ProductsModule.path)
       ],
     ),
-    RedirectRoute(path: '*', redirectTo: ProductsPage.path)
+    AutoRoute(page: AuthPage, path: AuthPage.path),
+    RedirectRoute(path: '*', redirectTo: AuthPage.path)
   ],
 )
 class $AppRouter {}
