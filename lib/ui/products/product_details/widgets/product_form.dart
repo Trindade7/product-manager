@@ -155,7 +155,7 @@ class _GenericInputField extends StatelessWidget {
   final int maxLength;
   @override
   Widget build(BuildContext context) {
-    //? TODO: generlizar ainda mais para vários tipos de states?
+    //? generlizar ainda mais para vários tipos de states?
     return BlocBuilder<ProductCubit, ProductState>(
       buildWhen: buildWhen,
       builder: (context, state) {

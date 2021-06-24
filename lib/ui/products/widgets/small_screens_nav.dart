@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:product_manager/core/auth/auth_repository.dart';
-import 'package:product_manager/ui/router/router.dart';
-import 'package:provider/provider.dart';
+import 'package:product_manager/ui/shared.dart';
 
 class SmallScreensNav extends StatelessWidget {
   const SmallScreensNav({
@@ -17,7 +15,7 @@ class SmallScreensNav extends StatelessWidget {
       currentIndex: 0,
       onTap: (index) => {
         if (index == 0)
-          {Navigator.pushNamed(context, Routes.routeProducts)}
+          {context.navigateTo(ProductsRoute())}
         else if (index == 2)
           {auth.logout()}
       },

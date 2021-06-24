@@ -1,12 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:product_manager/core/products/models/product.dart';
+import 'package:product_manager/ui/products/cubit/products_cubit.dart';
 import 'package:product_manager/ui/router/router.dart';
-import 'package:product_manager/ui/styles.dart';
-import 'package:product_manager/ui/theme.dart';
-import 'package:product_manager/ui/widgets/separator_box.dart';
-import 'package:product_manager/ui/widgets/square_icon_button.dart';
-import 'package:provider/provider.dart';
+import 'package:product_manager/ui/shared.dart';
+import 'package:auto_route/auto_route.dart';
 
 class ProductTileSm extends StatelessWidget {
   ProductTileSm({
@@ -24,8 +21,9 @@ class ProductTileSm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppTheme theme = context.watch();
+    ProductsCubit productsCubit = context.watch();
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, Routes.routeProductDetails),
+      onTap: () => context.navigateTo(ProductRoute()),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: Corners.lgBorder,
@@ -50,7 +48,7 @@ class ProductTileSm extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Delete button
+                  //* Delete button
                   SquareIconButton(
                     icon: Icon(
                       Icons.delete,
@@ -58,10 +56,10 @@ class ProductTileSm extends StatelessWidget {
                       size: IconSizes.md,
                     ),
                     selected: selected,
-                    onPressedCallback: deleteCallback,
+                    onPressedCallback: () => productsCubit.delete(product),
                   ),
                   SeparatorBox.medium(),
-                  // Nome e códio do producto
+                  //* Nome e códio do producto
                   Expanded(
                     flex: 10,
                     child: Column(

@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:product_manager/ui/styles.dart';
-import 'package:product_manager/ui/theme.dart';
-import 'package:product_manager/ui/widgets/separator_box.dart';
-import 'package:product_manager/ui/widgets/square_icon_button.dart';
+import 'package:product_manager/core/products/models/models.dart';
+import 'package:product_manager/core/products/products_repository.dart';
+import 'package:product_manager/ui/products/cubit/products_cubit.dart';
+import 'package:product_manager/ui/shared.dart';
 
 class ProductSummary extends StatelessWidget {
   const ProductSummary({
@@ -14,6 +13,15 @@ class ProductSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ProductsRepository productsRepository = context.watch();
+    List<Product> products = [
+      Product.empty(),
+      Product.empty(),
+      Product.empty(),
+      Product.empty(),
+      Product.empty(),
+      Product.empty(),
+    ];
     return Column(
       children: [
         SquareIconButton(
@@ -22,7 +30,10 @@ class ProductSummary extends StatelessWidget {
             size: IconSizes.lg,
             color: theme.mainTextColor,
           ),
-          onPressedCallback: () {},
+          onPressedCallback: () => products.forEach((product) {
+            print('adding');
+            productsRepository.add(product);
+          }),
           padding: Insets.lg,
         ),
         SeparatorBox.xLarge(),

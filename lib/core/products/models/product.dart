@@ -40,7 +40,7 @@ class Product extends Equatable {
   final Code code;
   final Price price;
   final Quantity quantity;
-  late QuantityUnit quantityUnit;
+  final QuantityUnit quantityUnit;
 
   @override
   // Para checar igualdade

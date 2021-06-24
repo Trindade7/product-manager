@@ -10,6 +10,8 @@ import 'package:product_manager/ui/widgets/separator_box.dart';
 import 'package:provider/provider.dart';
 
 class AuthPage extends StatefulWidget {
+  static const path = '/auth';
+
   AuthPage({Key? key}) : super(key: key);
 
   @override
