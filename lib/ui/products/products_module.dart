@@ -8,12 +8,13 @@ import 'cubit/products_cubit.dart';
 
 class ProductsModule extends StatelessWidget {
   static const path = 'products';
-  const ProductsModule({Key? key}) : super(key: key);
+
+  final ProductsRepository _productsRepository = AppProductsRepository();
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => AppProductsRepository(),
+    return RepositoryProvider.value(
+      value: _productsRepository,
       child: _ModuleBootstraper(),
     );
   }
