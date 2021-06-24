@@ -1,6 +1,5 @@
 import 'package:product_manager/core/products/models/models.dart';
 import 'package:product_manager/core/products/products_repository.dart';
-import 'package:product_manager/ui/products/cubit/products_cubit.dart';
 import 'package:product_manager/ui/shared.dart';
 
 class ProductSummary extends StatelessWidget {

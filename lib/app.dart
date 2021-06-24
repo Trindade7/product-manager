@@ -1,8 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:product_manager/core/auth/auth_repository.dart';
 import 'package:product_manager/ui/app/app_cubit.dart';
 import 'ui/shared.dart';
-
-import 'core/auth/auth_repository.dart';
 
 /// Inicia a app e os serviços necessários para a sua execução
 class AppBootstraper extends StatelessWidget {
@@ -24,12 +23,6 @@ class AppBootstraper extends StatelessWidget {
         child: Provider.value(
           value: appTheme,
           child: App(),
-          // child: MaterialApp.router(
-          //   theme: appTheme.toThemeData(),
-          //   title: 'Product Manager',
-          //   routeInformationParser: _appRouter.defaultRouteParser(),
-          //   routerDelegate: _appRouter.delegate(),
-          // ),
         ),
       ),
     );
@@ -56,7 +49,7 @@ class _AppState extends State<App> {
         _appRouter,
         routes: (_) => [
           if (appCubit.state.status == AppStatus.authenticated)
-            AppRoute()
+            AppStackRoute()
           else
             AuthRoute()
         ],
@@ -65,7 +58,7 @@ class _AppState extends State<App> {
   }
 }
 
-class AppPage extends StatelessWidget {
+class AppStackPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoRouter();

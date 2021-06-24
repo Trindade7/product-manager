@@ -19,7 +19,7 @@ import 'package:product_manager/ui/splash_page.dart';
     AutoRoute(page: SplashPage, path: SplashPage.path, initial: true),
     AutoRoute(
       path: '/',
-      page: AppPage,
+      page: AppStackPage,
       children: [
         RedirectRoute(path: '', redirectTo: ProductsModule.path),
         AutoRoute(

@@ -23,7 +23,7 @@ class ProductsLoaded extends ProductsState {
   }) : super(selected);
 
   final List<Product> products;
-  final ProductFilter orderBy;
+  final ProductsFilter orderBy;
   @override
   final Product selected;
 

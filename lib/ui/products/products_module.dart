@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:product_manager/core/products/app_products_repository.dart';
 import 'package:product_manager/core/products/products_repository.dart';
 
 import 'cubit/products_cubit.dart';
@@ -12,7 +13,7 @@ class ProductsModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) => ProductsRepository(),
+      create: (context) => AppProductsRepository(),
       child: _ModuleBootstraper(),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:product_manager/core/products/models/models.dart';
+import 'package:product_manager/core/products/app_products_repository.dart';
 import 'package:product_manager/core/products/products_repository.dart';
 
 part 'products_state.dart';
@@ -27,7 +28,7 @@ class ProductsCubit extends Cubit<ProductsState> {
   }
 
   Future<void> getProducts({
-    ProductFilter orderBy = ProductFilter.dateDesc,
+    ProductsFilter orderBy = ProductsFilter.dateDesc,
   }) async {
     try {
       emit(ProductsLoading(_emptyProduct));
