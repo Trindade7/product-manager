@@ -5,6 +5,7 @@ import 'package:product_manager/ui/products/cubit/products_cubit.dart';
 import 'package:product_manager/ui/products/widgets/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:product_manager/ui/shared.dart';
+import 'package:product_manager/ui/widgets/text_widgets.dart';
 
 class ProductsPage extends StatelessWidget {
   static const path = '';
@@ -51,17 +52,11 @@ class ProductList extends StatelessWidget {
         } else if (state is ProductsLoaded) {
           return state.products.isEmpty
               ? Column(
-                  children: [
+                  children: const [
                     SeparatorBox.offset(),
                     SeparatorBox.offset(),
-                    Text(
-                      'You don\' have any product yet!',
-                      style: TextStyles.body1,
-                    ),
-                    Text(
-                      'You don\' have any product yet!',
-                      style: Theme.of(context).textTheme.caption,
-                    ),
+                    BodyText('You don\' have any product yet!'),
+                    CaptionText('You don\' have any product yet!'),
                     SeparatorBox.large(),
                     _AddProductButton(),
                   ],
@@ -113,11 +108,7 @@ class _AddProductButton extends StatelessWidget {
             )
           : Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                'adicionar',
-                style: TextStyles.title1.copyWith(color: appTheme.greyWeak),
-              ),
-            ),
+              child: ElevatedButtonText('adicionar')),
     );
   }
 }
