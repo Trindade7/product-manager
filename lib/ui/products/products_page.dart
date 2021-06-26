@@ -1,9 +1,11 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_manager/core/products/models/models.dart';
 import 'package:product_manager/ui/products/cubit/products_cubit.dart';
 import 'package:product_manager/ui/products/widgets/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:product_manager/ui/shared.dart';
+import 'package:product_manager/ui/widgets/text_widgets.dart';
 
 class ProductsPage extends StatelessWidget {
   static const path = '';
@@ -50,10 +52,11 @@ class ProductList extends StatelessWidget {
         } else if (state is ProductsLoaded) {
           return state.products.isEmpty
               ? Column(
-                  children: [
+                  children: const [
                     SeparatorBox.offset(),
                     SeparatorBox.offset(),
-                    Text('You don\' have any product yet!'),
+                    BodyText('You don\' have any product yet!'),
+                    CaptionText('You don\' have any product yet!'),
                     SeparatorBox.large(),
                     _AddProductButton(),
                   ],
@@ -68,36 +71,6 @@ class ProductList extends StatelessWidget {
                               context.read<ProductsCubit>().delete(product),
                         ),
                       ),
-                      // ProductTileSm(
-                      //   product: Product.empty(),
-                      //   deleteCallback: () => context
-                      //       .read<ProductsCubit>()
-                      //       .delete(Product.empty()),
-                      // ),
-                      // ProductTileSm(
-                      //   product: Product.empty(),
-                      //   deleteCallback: () => context
-                      //       .read<ProductsCubit>()
-                      //       .delete(Product.empty()),
-                      // ),
-                      // ProductTileSm(
-                      //   product: Product.empty(),
-                      //   deleteCallback: () => context
-                      //       .read<ProductsCubit>()
-                      //       .delete(Product.empty()),
-                      // ),
-                      // ProductTileSm(
-                      //   product: Product.empty(),
-                      //   deleteCallback: () => context
-                      //       .read<ProductsCubit>()
-                      //       .delete(Product.empty()),
-                      // ),
-                      // ProductTileSm(
-                      //   product: Product.empty(),
-                      //   deleteCallback: () => context
-                      //       .read<ProductsCubit>()
-                      //       .delete(Product.empty()),
-                      // ),
                     ],
                   ),
                 );
@@ -124,29 +97,18 @@ class _AddProductButton extends StatelessWidget {
   const _AddProductButton({Key? key, this.inconOnly = false}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    AppTheme appTheme = context.watch();
+    return ElevatedButton(
       onPressed: () => context.navigateTo(ProductRoute()),
-      style: TextButton.styleFrom(
-        backgroundColor: Theme.of(context).primaryColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: Corners.mdBorder,
-        ),
-        minimumSize: Size(Insets.md, Insets.md),
-        padding: EdgeInsets.all(Insets.md),
-        elevation: 5,
-      ),
+      style: ElevatedButton.styleFrom(elevation: 5),
       child: inconOnly
           ? Icon(
               Icons.add,
-              color: Colors.white,
+              color: appTheme.greyWeak,
             )
           : Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                'adicionar',
-                style: TextStyles.title1.copyWith(color: Colors.white),
-              ),
-            ),
+              child: ElevatedButtonText('adicionar')),
     );
   }
 }

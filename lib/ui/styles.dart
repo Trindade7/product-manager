@@ -77,7 +77,7 @@ class FontSizes {
 
 /// Fonts - Lista de fontes da Applicação.
 class Fonts {
-  static const String notoLatin = "Noto";
+  static const String lato = "Lato";
 }
 
 /// TextStyles - Principais estilos de texto.
@@ -85,13 +85,13 @@ class Fonts {
 /// Para casos únicos, utilizar `style.copyWith()` para criar no local.
 class TextStyles {
   /// Estilo inicial
-  static const TextStyle notoLatin = const TextStyle(
-    fontFamily: Fonts.notoLatin,
+  static const TextStyle lato = const TextStyle(
+    fontFamily: Fonts.lato,
     fontWeight: FontWeight.normal,
     height: 1,
   );
 
-  static TextStyle get h1 => notoLatin.copyWith(
+  static TextStyle get h1 => lato.copyWith(
         fontWeight: FontWeight.bold,
         fontSize: FontSizes.s48,
         letterSpacing: -1,
@@ -105,23 +105,23 @@ class TextStyles {
   static TextStyle get h4 =>
       h1.copyWith(fontSize: FontSizes.s14, letterSpacing: -.05, height: 1.29);
 
-  static TextStyle get title1 => notoLatin.copyWith(
+  static TextStyle get title1 => lato.copyWith(
       fontWeight: FontWeight.bold, fontSize: FontSizes.s16, height: 1.31);
 
   static TextStyle get title2 => title1.copyWith(
-      fontWeight: FontWeight.bold, fontSize: FontSizes.s14, height: 1.36);
+      fontWeight: FontWeight.bold, fontSize: FontSizes.s12, height: 1.36);
 
-  static TextStyle get body1 => notoLatin.copyWith(
-      fontWeight: FontWeight.normal, fontSize: FontSizes.s14, height: 1.71);
+  static TextStyle get body1 => lato.copyWith(
+      fontWeight: FontWeight.normal, fontSize: FontSizes.s16, height: 1.71);
 
   static TextStyle get body2 =>
-      body1.copyWith(fontSize: FontSizes.s12, height: 1.5, letterSpacing: .2);
+      body1.copyWith(fontSize: FontSizes.s14, height: 1.5, letterSpacing: .2);
 
   static TextStyle get body3 => body1.copyWith(
       fontSize: FontSizes.s12, height: 1.5, fontWeight: FontWeight.bold);
 
-  static TextStyle get caption => notoLatin.copyWith(
-        fontSize: FontSizes.s11,
+  static TextStyle get caption => lato.copyWith(
+        fontSize: FontSizes.s12,
         height: 1.36,
       );
 }

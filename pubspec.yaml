@@ -29,6 +29,7 @@ dependencies:
   build_runner: ^2.0.4
   cupertino_icons: ^1.0.3
   equatable: ^2.0.0
+  faker: ^2.0.0
   flow_builder: ^0.0.2
   flutter_bloc: ^7.0.0
   flutter_svg: ^0.22.0
@@ -60,14 +61,19 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Noto
+    - family: Lato
       fonts:
-        - asset: assets/fonts/NotoSans-Regular.ttf
-        - asset: assets/fonts/NotoSans-Italic.ttf
+        - asset: assets/fonts/Lato-Regular.ttf
+        - asset: assets/fonts/Lato-Italic.ttf
           style: italic
-        - asset: assets/fonts/NotoSans-Bold.ttf
+        - asset: assets/fonts/Lato-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Lato-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Lato-Bold.ttf
           weight: 700
-        - asset: assets/fonts/NotoSans-BoldItalic.ttf
+        - asset: assets/fonts/Lato-BoldItalic.ttf
           weight: 700
           style: italic
   # For details regarding fonts from package dependencies,
