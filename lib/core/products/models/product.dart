@@ -10,6 +10,22 @@ class Product extends Equatable {
     required this.quantityUnit,
   });
 
+  static Product fromData({
+    required String name,
+    required String code,
+    required double price,
+    required double quantity,
+    required String quantityUnit,
+  }) {
+    return Product(
+      name: Name(name),
+      code: Code(code),
+      price: Price(price),
+      quantity: Quantity(quantity),
+      quantityUnit: QuantityUnit(quantityUnit),
+    );
+  }
+
   static Product empty() {
     return Product(
       name: Name('empty'),

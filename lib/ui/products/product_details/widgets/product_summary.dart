@@ -61,7 +61,7 @@ class ProductSummary extends StatelessWidget {
                   Text(
                     '1000',
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyles.title2,
+                    style: TextStyles.title1,
                   ),
                   SeparatorBox.small(),
                   Text(

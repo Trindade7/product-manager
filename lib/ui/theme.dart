@@ -56,8 +56,8 @@ class AppTheme {
       required this.focus,
       required this.danger,
       required this.isDark}) {
-    mainTextColor = isDark ? Colors.white : Colors.black;
-    inverseTextColor = isDark ? Colors.black : Colors.white;
+    mainTextColor = greyMedium;
+    inverseTextColor = greyWeak;
   }
 
   /// cria um tema baseado no ThemeType
@@ -74,7 +74,7 @@ class AppTheme {
           greyWeak: const Color(0xfff9fbfa),
           grey: const Color(0xff8d9093),
           greyMedium: const Color(0xff747474),
-          greyStrong: const Color(0xff33383c),
+          greyStrong: const Color(0xff34373e),
           focus: const Color(0xfffe5a65),
           danger: const Color(0xffe57373),
         );
@@ -99,7 +99,7 @@ class AppTheme {
         surface: surface1,
         onBackground: mainTextColor,
         onSurface: mainTextColor,
-        onError: mainTextColor,
+        onError: inverseTextColor,
         onPrimary: inverseTextColor,
         onSecondary: inverseTextColor,
         error: focus,
@@ -108,31 +108,44 @@ class AppTheme {
     // Aplica estilos que ColorScheme não cobre
     // textbut
 
-    t.copyWith(
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        textSelectionTheme: TextSelectionThemeData(
-          cursorColor: surface1,
-          selectionHandleColor: Colors.transparent,
-          selectionColor: surface1,
+    t = t.copyWith(
+        toggleableActiveColor: accent1,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all<Color>(inverseTextColor),
+            shape: MaterialStateProperty.all<OutlinedBorder>(
+              RoundedRectangleBorder(
+                borderRadius: Corners.mdBorder,
+              ),
+            ),
+            minimumSize:
+                MaterialStateProperty.all<Size>(Size.square(Insets.md)),
+            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              EdgeInsets.all(Insets.md),
+            ),
+          ),
         ),
-        // buttonColor: Colors.white,
-        // highlightColor: shift(accent1, .1),
-        // toggleableActiveColor: accent1,
-        // focusColor: accent1,
-        textTheme: TextTheme(
-          headline1: TextStyles.h1,
-          headline2: TextStyles.h2,
-          headline3: TextStyles.h3,
-          headline4: TextStyles.h4,
-          bodyText1: TextStyles.body1,
-          bodyText2: TextStyles.body2,
-          subtitle1: TextStyles.title1,
-          subtitle2: TextStyles.title2,
-          caption: TextStyles.caption,
-          overline: TextStyles.caption,
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<OutlinedBorder>(
+              RoundedRectangleBorder(
+                borderRadius: Corners.mdBorder,
+              ),
+            ),
+            minimumSize:
+                MaterialStateProperty.all<Size>(Size.square(Insets.md)),
+            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              EdgeInsets.all(Insets.md),
+            ),
+          ),
         ),
-        iconTheme: IconThemeData(color: inverseTextColor));
-    // returna ThemeData
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: Corners.mdBorder,
+          ),
+          contentPadding: EdgeInsets.all(Insets.md),
+        ));
+
     return t;
   }
 

@@ -46,6 +46,10 @@ class ProductForm extends StatelessWidget {
         ),
         SeparatorBox.xLarge(),
         // Salvar
+        ElevatedButton(
+          onPressed: () {},
+          child: Text('salvar'),
+        ),
         _SaveButton()
       ],
     );

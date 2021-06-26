@@ -87,7 +87,7 @@ class ProductTileSm extends StatelessWidget {
                     children: [
                       // Preço
                       Text(
-                        '\$ ${product.price.value}',
+                        '\$ ${product.price.value.toStringAsPrecision(3)}',
                         style: TextStyles.body1
                             .copyWith(color: theme.shift(theme.accent1, 0.1)),
                       ),

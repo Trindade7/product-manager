@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'dart:math';
+import 'package:faker/faker.dart';
+
 import 'products_repository.dart';
 import 'models/models.dart';
 
 class AppProductsRepository implements ProductsRepository {
   Product selected = Product.empty();
   final List<Product> _products = [];
+  // final List<Product> _products = [..._fakerProducts()]; //test only
 
   @override
   Future<void> add(Product product) async {
@@ -40,4 +44,24 @@ class AppProductsRepository implements ProductsRepository {
       throw ProductsRepositoryFailure();
     }
   }
+}
+
+// ################ dev only
+List<Product> _fakerProducts({int quantity = 12}) {
+  Product _fakerProduct() {
+    var food = faker.food.dish();
+    return Product.fromData(
+      name: food,
+      code: food.substring(0, 2),
+      price: Random().nextDouble() * 10,
+      quantity: Random().nextInt(100).toDouble(),
+      quantityUnit: 'Un',
+    );
+  }
+
+  List<Product> products = [for (var i = 0; i < quantity; i++) i]
+      .map((e) => _fakerProduct())
+      .toList();
+
+  return products;
 }

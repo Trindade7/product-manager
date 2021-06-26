@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:faker/faker.dart';
 import 'package:product_manager/core/products/models/models.dart';
 import 'package:product_manager/core/products/app_products_repository.dart';
 import 'package:product_manager/core/products/products_repository.dart';

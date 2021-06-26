@@ -12,6 +12,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   LoginCubit(this._authRepository) : super(LoginState()) {
     _autoPopulateForm();
+    _autoLogin();
   }
 
   /// for tests only
@@ -23,6 +24,17 @@ class LoginCubit extends Cubit<LoginState> {
       password: password,
       status: Formz.validate([name, password]),
     ));
+  }
+
+  /// for tests only
+  _autoLogin() async {
+    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+
+    await _authRepository.login(
+      name: Name(state.name.value),
+      password: Password(state.password.value),
+    );
+    emit(state.copyWith(status: FormzStatus.submissionSuccess));
   }
 
   //  Atualiza o valor do estado quando o valor do login altera
