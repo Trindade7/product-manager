@@ -54,7 +54,10 @@ class ProductList extends StatelessWidget {
                   children: [
                     SeparatorBox.offset(),
                     SeparatorBox.offset(),
-                    Text('You don\' have any product yet!'),
+                    Text(
+                      'You don\' have any product yet!',
+                      style: TextStyles.body1,
+                    ),
                     Text(
                       'You don\' have any product yet!',
                       style: Theme.of(context).textTheme.caption,
