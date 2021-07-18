@@ -30,6 +30,7 @@ class ProductForm extends StatelessWidget {
         Row(
           children: [
             Expanded(child: _CodeInput()),
+            SeparatorBox.small(),
             Expanded(child: _PriceInput()),
           ],
         ),
@@ -37,10 +38,8 @@ class ProductForm extends StatelessWidget {
         // Quantidade e unidade
         Row(
           children: [
-            // Quantidade
             Expanded(child: _QuantityInput()),
             SeparatorBox.small(),
-            // unidade
             Expanded(child: _QuantityUnitInput()),
           ],
         ),
@@ -78,7 +77,7 @@ class _CodeInput extends _GenericInputField {
               context.read<ProductCubit>().codeChanged(code),
           hintText: "Código...",
           errorText: (state) => state.code.invalid
-              ? 'Pelo menos 2 carácteres e no máximo 100'
+              ? 'Pelo menos 2 carácteres e no máximo 50'
               : null,
         );
 }

@@ -10,7 +10,6 @@ class SmallScreensNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthRepository auth = context.watch();
     return BottomNavigationBar(
       backgroundColor: Colors.white,
       elevation: 5,
@@ -19,7 +18,7 @@ class SmallScreensNav extends StatelessWidget {
         if (index == 0)
           {Navigator.pushNamed(context, Routes.routeProducts)}
         else if (index == 2)
-          {auth.logout()}
+          {context.read<AuthRepository>().logout()}
       },
       items: [
         BottomNavigationBarItem(

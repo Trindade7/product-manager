@@ -29,19 +29,26 @@ class AppBootstraper extends StatefulWidget {
 }
 
 class _AppBootstraperState extends State<AppBootstraper> {
-  late Store _store;
+  late final Store _store;
 
-  @override
+  // Inicializa a store com o path desejado
+  Future<void> _initStore() async {
+    try {
+      Directory dir = await getApplicationDocumentsDirectory();
+      _store = Store(
+        getObjectBoxModel(),
+        directory: join(dir.path, 'database'),
+      );
+    } on Exception {
+      throw Exception('error on dir');
+    }
+  }
+
   void initState() {
     super.initState();
-
-    // Inicializa a store com o path desejado
-    getApplicationDocumentsDirectory().then((dir) => {
-          _store = Store(
-            getObjectBoxModel(),
-            directory: join(dir.path, 'objectbox'),
-          )
-        });
+    _initStore().whenComplete(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -105,16 +112,12 @@ class App extends StatelessWidget {
                   Routes.routeAuth,
                   (route) => false,
                 );
-
-                // Delayed routing para dar tempo de observar a loading animation
-                // (() async => await Future.delayed(Duration(seconds: 5))
-                //     .then((value) => _navigator.pushNamedAndRemoveUntil(
-                //           Routes.routeAuth,
-                //           (route) => false,
-                //         )))();
-
                 break;
               default:
+                _navigator.pushNamedAndRemoveUntil(
+                  Routes.routeSplash,
+                  (route) => false,
+                );
                 break;
             }
           },
@@ -122,7 +125,6 @@ class App extends StatelessWidget {
         );
       },
       onGenerateRoute: generateRoute,
-      initialRoute: Routes.routeSplash,
     );
   }
 }

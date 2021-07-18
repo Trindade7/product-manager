@@ -16,11 +16,24 @@ class ProductsCubit extends Cubit<ProductsState> {
     _productsRepository.selected = product;
   }
 
+  void createProduct() {
+    _productsRepository.selected = Product.empty();
+  }
+
   void delete(Product product) async {
+    print('deleting');
     try {
       await _productsRepository.delete(product);
-    } catch (e) {
-      print(e);
+      var products =
+          await this._productsRepository.products(ProductQuery.def());
+      emit(
+        ProductsLoaded(
+            products: products,
+            orderBy: ProductFilter.dateDesc,
+            selected: state.selected),
+      );
+    } on Exception {
+      print('error deleting');
     }
   }
 

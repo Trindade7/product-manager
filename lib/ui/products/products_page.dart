@@ -10,17 +10,65 @@ import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
 import 'package:provider/provider.dart';
 
+// class ProductsPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     AppTheme theme = context.watch();
+//     const bannerIcon = 'assets/images/project_manager_icon_p.svg';
+//     return Scaffold(
+//       bottomNavigationBar: SmallScreensNav(),
+//       floatingActionButton: _CreateProductButton(
+//           child: Icon(
+//         Icons.add,
+//         color: theme.inverseTextColor,
+//       )),
+//       body: BlocProvider<ProductsCubit>(
+//         create: (_) => ProductsCubit(context.read<ProductsRepository>()),
+//         child: ListView(
+//           children: [
+//             Container(
+//               child: SvgPicture.asset(
+//                 bannerIcon,
+//                 width: 150,
+//               ),
+//               padding: EdgeInsets.fromLTRB(
+//                 Insets.lg,
+//                 2 * Insets.offset,
+//                 Insets.lg,
+//                 Insets.offset,
+//               ),
+//               color: theme.surface1,
+//               width: double.infinity,
+//             ),
+//             ProductList(),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+
+//   void openProduct(BuildContext context) {
+//     context.read<ProductsCubit>().createProduct();
+//     Navigator.pushNamed(context, Routes.routeProductDetails);
+//   }
+// }
+
 class ProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppTheme theme = context.watch();
     const bannerIcon = 'assets/images/project_manager_icon_p.svg';
-    return Scaffold(
-      bottomNavigationBar: SmallScreensNav(),
-      body: BlocProvider<ProductsCubit>(
-        create: (_) => ProductsCubit(context.read<ProductsRepository>()),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+    return _PageBuilder(
+      child: Scaffold(
+        bottomNavigationBar: SmallScreensNav(),
+        floatingActionButton: _CreateProductButton(
+          child: Icon(
+            Icons.add,
+            color: theme.inverseTextColor,
+          ),
+          onPressedCallback: () => createProduct(context),
+        ),
+        body: ListView(
           children: [
             Container(
               child: SvgPicture.asset(
@@ -37,18 +85,27 @@ class ProductsPage extends StatelessWidget {
               width: double.infinity,
             ),
             ProductList(),
-            FloatingActionButton(
-              onPressed: () =>
-                  Navigator.pushNamed(context, Routes.routeProductDetails),
-            )
           ],
         ),
       ),
     );
   }
 
-  void openProduct(Product product, BuildContext context) {
+  void createProduct(BuildContext context) {
+    // context.read<ProductsCubit>().createProduct();
     Navigator.pushNamed(context, Routes.routeProductDetails);
+  }
+}
+
+class _PageBuilder extends StatelessWidget {
+  final Widget child;
+
+  const _PageBuilder({Key? key, required this.child}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<ProductsCubit>(
+        create: (_) => ProductsCubit(context.read<ProductsRepository>()),
+        child: child);
   }
 }
 
@@ -63,7 +120,7 @@ class ProductList extends StatelessWidget {
           return state.products.isEmpty
               ? Padding(
                   padding: EdgeInsets.all(Insets.offset),
-                  child: _AddProductButton(),
+                  child: _CreateProductButton(),
                 )
               : Column(
                   children: [
@@ -91,21 +148,38 @@ class ProductList extends StatelessWidget {
   }
 }
 
-class _AddProductButton extends StatelessWidget {
+class _CreateProductButton extends StatelessWidget {
+  const _CreateProductButton({
+    Key? key,
+    this.child,
+    this.onPressedCallback,
+  }) : super(key: key);
+
+  final Widget? child;
+  final void Function()? onPressedCallback;
+
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: () =>
-            Navigator.pushNamed(context, Routes.routeProductDetails),
+        onPressed: () {
+          context.read<ProductsCubit>().createProduct();
+          Navigator.pushNamed(context, Routes.routeProductDetails);
+        },
         style: TextButton.styleFrom(
           backgroundColor: Theme.of(context).primaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: Corners.mdBorder,
           ),
+          elevation: 5,
+          shadowColor: Colors.black54,
+          padding: EdgeInsets.all(Insets.md),
+          minimumSize: Size.zero,
+          visualDensity: VisualDensity.comfortable,
         ),
-        child: Text(
-          'ADICIONAR',
-          style: TextStyles.title1.copyWith(color: Colors.white),
-        ));
+        child: child ??
+            Text(
+              'ADICIONAR',
+              style: TextStyles.title1.copyWith(color: Colors.white),
+            ));
   }
 }

@@ -2,6 +2,8 @@ part of 'product_cubit.dart';
 
 class ProductState extends Equatable {
   const ProductState({
+    required this.product,
+    this.loading = false,
     this.status = FormzStatus.pure,
     this.name = const NameInput.pure(),
     this.code = const CodeInput.pure(),
@@ -9,6 +11,9 @@ class ProductState extends Equatable {
     this.quantity = const QuantityInput.pure(),
     this.quantityUnit = const QuantityUnitInput.pure(),
   });
+
+  final Product product;
+  final bool loading;
 
   final FormzStatus status;
   final NameInput name;
@@ -19,14 +24,8 @@ class ProductState extends Equatable {
 
   @override
   // Utilizado para comparar estados
-  List<Object> get props => [
-        status,
-        name,
-        code,
-        price,
-        quantity,
-        quantityUnit,
-      ];
+  List<Object> get props =>
+      [status, name, code, price, quantity, quantityUnit, product];
 
   /// Cria um novo `ProductState` com os dados actualizados
   //? TODO: melhorar implementation
@@ -34,6 +33,7 @@ class ProductState extends Equatable {
     bool isSubmiting = false,
     bool isSubmissionSuccess = false,
     bool isSubmissionFailure = false,
+    Product? product,
     FormzStatus? status,
     NameInput? name,
     CodeInput? code,
@@ -41,6 +41,7 @@ class ProductState extends Equatable {
     QuantityInput? quantity,
     QuantityUnitInput? quantityUnit,
   }) {
+    product = product ?? this.product;
     name = name ?? this.name;
     code = code ?? this.code;
     price = price ?? this.price;
@@ -66,6 +67,7 @@ class ProductState extends Equatable {
 
     // Evita ter que validar o estado no cubit sempre que um valor mudar
     return ProductState(
+      product: product,
       status: status,
       name: name,
       code: code,

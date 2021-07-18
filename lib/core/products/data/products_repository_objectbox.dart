@@ -7,13 +7,15 @@ import 'package:product_manager/objectbox.g.dart';
 /// ObectBox database implementation of ProductsRepository
 class ProductsRepositoryObjectbox implements ProductsRepository {
   ProductsRepositoryObjectbox({required Store store}) {
-    this._store = store;
-    this._productBox = _store.box<ProductAdapter>();
+    try {
+      this._productBox = store.box<ProductAdapter>();
+    } on Exception {
+      throw Exception('Error loading object box store');
+    }
   }
 
   Product selected = Product.empty();
   ProductQuery _query = ProductQuery.def();
-  late Store _store;
   late Box<ProductAdapter> _productBox;
 
   // Para cache as queries de productos
@@ -29,13 +31,14 @@ class ProductsRepositoryObjectbox implements ProductsRepository {
   /// Caso contrário, tenta buscar os produtos
   /// da base de dados com a nova `query`.
   Future<List<Product>> products(query) async {
-    if (query == _query) return Future.value(_products);
+    // if (query == _query) return Future.value(_products);
 
     try {
       _products = _productBox.getAll().map((p) => toProduct(p)).toList();
       return Future.value(_products);
     } on Exception {
-      throw ProductsRepositoryException();
+      // throw ProductsRepositoryException();
+      return Future.value([]);
     }
   }
 

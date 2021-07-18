@@ -13,13 +13,12 @@ class AuthRepository implements AuthRepositoryAbstract {
 
   @override
   Stream<AuthStatus> get status async* {
-    await Future<void>.delayed(const Duration(seconds: 1));
+    // await Future<void>.delayed(const Duration(seconds: 1));
     yield AuthStatus.unauthenticated;
     yield* _controller.stream;
   }
 
   @override
-  // TODO: implement login
   Future<void> login({required Name name, required Password password}) async {
     if (!name.isValid || !password.isValid) {
       throw LoginFailure();
@@ -41,7 +40,6 @@ class AuthRepository implements AuthRepositoryAbstract {
     } on Exception {
       throw LogoutFailure();
     }
-    print('finishe');
   }
 
   @override

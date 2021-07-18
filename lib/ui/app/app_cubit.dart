@@ -19,7 +19,6 @@ class AppCubit extends Cubit<AppState> {
 
   /// Actualiza o AppState de acordo com o Auth state
   void _onAuthStatusChanged(AuthStatus status) {
-    emit(AppState.loading());
     if (status == AuthStatus.authenticated) {
       emit(AppState.authenticated());
     } else {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:product_manager/core/products/models/product.dart';
+import 'package:product_manager/ui/products/cubit/products_cubit.dart';
+import 'package:product_manager/ui/products/product_details/cubit/product_cubit.dart';
 import 'package:product_manager/ui/router/router.dart';
 import 'package:product_manager/ui/styles.dart';
 import 'package:product_manager/ui/theme.dart';
@@ -24,8 +26,12 @@ class ProductTileSm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppTheme theme = context.watch();
+    ProductsCubit productsCubit = context.read<ProductsCubit>();
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, Routes.routeProductDetails),
+      onTap: () {
+        productsCubit.selectProduct(product);
+        Navigator.pushNamed(context, Routes.routeProductDetails);
+      },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: Corners.lgBorder,
@@ -58,7 +64,7 @@ class ProductTileSm extends StatelessWidget {
                       size: IconSizes.md,
                     ),
                     selected: selected,
-                    onPressedCallback: () => deleteCallback(),
+                    onPressedCallback: () => productsCubit.delete(product),
                   ),
                   SeparatorBox.medium(),
                   // Nome e códio do producto

@@ -21,8 +21,8 @@ class Code implements EntityObject<String, CodeError?> {
 
   /// Valida o valor passado, retorna o tipo de erro ou null
   static CodeError? validate(String value) {
-    // testa se a string está no range 6-100
-    final lengthRgx = RegExp(r'^.{6,100}$');
+    // testa se a string está no range 2-50
+    final lengthRgx = RegExp(r'^.{2,50}$');
 
     if (value.length == 0) {
       return CodeError.empty;

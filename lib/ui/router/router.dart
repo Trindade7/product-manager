@@ -22,6 +22,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.routeSplash:
       return MaterialPageRoute(builder: (context) => SplashPage());
     default:
-      return MaterialPageRoute(builder: (context) => ProductsPage());
+      return MaterialPageRoute(builder: (context) => SplashPage());
   }
 }
