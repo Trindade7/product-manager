@@ -12,13 +12,14 @@ import 'package:faker/faker.dart';
 Future<void> main() async {
   final Store store = await _initStore();
   VendorRepositoryObjectbox vendorRepo;
+  Box<VendorAdapter> vendorBox = store.box<VendorAdapter>();
   //  Fake data
   final generatedVendors = genVendors(quatity: 4);
 
   VendorRepositoryObjectbox storeSetup() {
-    store.box<VendorAdapter>().removeAll();
+    vendorBox.removeAll();
     generatedVendors.forEach((element) {
-      store.box<VendorAdapter>().put(VendorAdapter.fromVendor(element));
+      vendorBox.put(VendorAdapter.fromVendor(element));
     });
 
     return VendorRepositoryObjectbox(store: store);
@@ -32,10 +33,10 @@ Future<void> main() async {
     test('create item', () async {
       vendorRepo = storeSetup();
 
-      int beforeBoxCount = store.box<VendorAdapter>().count();
+      int beforeBoxCount = vendorBox.count();
       await vendorRepo.add(genVendors(quatity: 1).first);
 
-      expect(store.box<VendorAdapter>().count(), beforeBoxCount + 1);
+      expect(vendorBox.count(), beforeBoxCount + 1);
     });
 
     test('get all vendors', () async {
