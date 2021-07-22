@@ -1,4 +1,4 @@
-import 'package:product_manager/core/entity_object.dart';
+import 'package:product_manager/core/entities/entity_object.dart';
 
 /// Tipos de erro da password, pode ser incrementado para suportar
 /// outros tipos de erro como incluir valores alfa numéricos obrigátorio

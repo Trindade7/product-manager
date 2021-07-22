@@ -46,9 +46,57 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "4:8705049151808756468",
+      "lastPropertyId": "3:7636441236983535463",
+      "name": "CategoryAdapter",
+      "properties": [
+        {
+          "id": "1:7210896759788241870",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2422559426496876530",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:7636441236983535463",
+          "name": "description",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:7374197062487467972",
+      "lastPropertyId": "3:2771752855800296551",
+      "name": "VendorAdapter",
+      "properties": [
+        {
+          "id": "1:5836720001379759458",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3625649335868439905",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:2771752855800296551",
+          "name": "description",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "3:4654297689630434632",
+  "lastEntityId": "5:7374197062487467972",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

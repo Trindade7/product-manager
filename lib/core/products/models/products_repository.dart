@@ -1,7 +1,7 @@
 import 'dart:core';
 import 'dart:async';
 
-import 'package:product_manager/core/products/models/models.dart';
+import 'models.dart';
 
 enum ProductFilter {
   addedOrderAsc,

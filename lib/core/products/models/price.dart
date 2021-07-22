@@ -1,4 +1,4 @@
-import 'package:product_manager/core/entity_object.dart';
+import 'package:product_manager/core/entities/entity_object.dart';
 
 /// Tipos de erro da Preço
 enum PriceError { invalid, tooBig }

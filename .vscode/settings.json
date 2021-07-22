@@ -1,5 +1,19 @@
 {
   "files.exclude": {
+    "lib\\*app": true,
+    "lib\\*app.*": true,
+    "lib\\*core.*": true,
+    "lib\\*main": true,
+    "lib\\*main.*": true,
+    "lib\\*objectbox-model": true,
+    "lib\\*objectbox-model.*": true,
+    "lib\\*objectbox": true,
+    "lib\\*objectbox.*": true,
+    "lib\\*objectbox.g": true,
+    "lib\\*objectbox.g.*": true,
+    "lib\\*ui": true,
+    "lib\\*ui.*": true,
+    "product_manager.iml": true,
     "*.dart_tool": true,
     "*.dart_tool.*": true,
     "*.flutter-plugins": true,
@@ -24,6 +38,8 @@
     "*assets.*": true,
     "*build": true,
     "*build.*": true,
+    "*download": true,
+    "*download.*": true,
     "*ios": true,
     "*ios.*": true,
     "*lib.*": true,
@@ -33,10 +49,9 @@
     "*pubspec.*": true,
     "*README": true,
     "*README.*": true,
-    "*test": true,
     "*test.*": true,
     "*web": true,
     "*web.*": true,
-    "lib\\ui": true
+    "test\\ui": true
   }
 }
